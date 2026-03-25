@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlugAI — The Agentic Knowledge OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* PAGE-SPECIFIC: Home hero animations & connector marquee */
+.hero-anim-1{animation:fadeUp .8s ease-out both;}
+.hero-anim-2{animation:fadeUp .8s ease-out .12s both;}
+.hero-anim-3{animation:fadeUp .8s ease-out .24s both;}
+.hero-anim-4{animation:fadeUp .8s ease-out .36s both;}
+.hero-anim-5{animation:fadeUp .8s ease-out .5s both;}
+
+/* Gradient headline animation */
+.hero-gradient-text{
+  background:linear-gradient(135deg,var(--accent-glow) 0%,var(--gold-light) 25%,var(--teal-light) 50%,var(--accent-glow) 75%,var(--gold-light) 100%);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShift 8s ease-in-out infinite;
+}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 14s ease-in-out infinite;}
+.orb-a{width:450px;height:450px;top:-8%;left:-6%;background:rgba(196,93,62,.1);animation-delay:0s;}
+.orb-b{width:350px;height:350px;bottom:10%;right:-4%;background:rgba(42,125,110,.07);animation-delay:-5s;}
+.orb-c{width:250px;height:250px;top:35%;right:15%;background:rgba(201,168,76,.05);animation-delay:-9s;}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(18px,-12px) scale(1.04)}
+  66%{transform:translate(-12px,8px) scale(.96)}
+}
+
+/* Connector marquee */
+.marquee-track{
+  display:flex;gap:3rem;animation:marqueeScroll 30s linear infinite;
+  width:max-content;
+}
+.marquee-wrap{overflow:hidden;padding:1.5rem 0;}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-item{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.85rem;font-weight:600;color:var(--slate);white-space:nowrap;
+}
+.marquee-icon{
+  width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+
+/* Pillar glow */
+.pillar-card{position:relative;overflow:hidden;}
+.pillar-card::after{
+  content:'';position:absolute;bottom:-30px;right:-30px;
+  width:120px;height:120px;border-radius:50%;filter:blur(40px);
+  pointer-events:none;opacity:.25;
+}
+.pillar-card:nth-child(1)::after{background:var(--accent);}
+.pillar-card:nth-child(2)::after{background:var(--teal);}
+.pillar-card:nth-child(3)::after{background:var(--gold);}
+
+/* Social proof logos */
+.proof-grid{
+  display:flex;align-items:center;justify-content:center;gap:3rem;
+  padding:2rem 0;opacity:.3;
+}
+.proof-item{
+  font-family:'DM Serif Display',serif;font-size:1.4rem;
+  letter-spacing:.02em;
+}
+
+/* CwyoD mock */
+.cwyod-mock{
+  background:var(--navy);border-radius:14px;padding:1.25rem;
+  border:1px solid var(--edge-d);max-width:480px;margin:2rem auto 0;
+}
+.cwyod-msg{
+  padding:.6rem .9rem;border-radius:10px;font-size:.72rem;
+  line-height:1.5;margin-bottom:.5rem;max-width:85%;
+}
+.cwyod-user{
+  background:var(--accent);color:white;margin-left:auto;
+  border-bottom-right-radius:3px;
+}
+.cwyod-ai{
+  background:rgba(244,241,236,.07);color:rgba(244,241,236,.75);
+  border-bottom-left-radius:3px;
+}
+.cwyod-cite{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;
+  padding:.08rem .25rem;border-radius:2px;
+  background:rgba(42,125,110,.2);color:var(--teal-light);
+  vertical-align:super;margin-left:.1rem;
+}
+.cwyod-conf{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;
+  color:var(--teal-light);margin-top:.2rem;
+  display:flex;align-items:center;gap:.35rem;
+}
+.cwyod-conf-bar{width:50px;height:3px;border-radius:2px;background:rgba(244,241,236,.08);overflow:hidden;}
+.cwyod-conf-fill{height:100%;border-radius:2px;background:var(--teal-light);}
+
+/* Agent flow mock */
+.agent-mock{
+  background:var(--navy);border-radius:14px;padding:1.25rem;
+  border:1px solid var(--edge-d);max-width:380px;margin:2rem auto 0;
+}
+.agent-node{
+  background:rgba(244,241,236,.05);border:1px solid var(--edge-d);
+  border-radius:8px;padding:.5rem .7rem;
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.65rem;color:rgba(244,241,236,.65);margin-bottom:.1rem;
+}
+.agent-node-icon{
+  width:24px;height:24px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;
+}
+.agent-arrow{text-align:center;color:rgba(244,241,236,.15);font-size:.6rem;padding:.05rem 0;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav-dark">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-mark"><img src="plugai-logo.png" alt="PlugAI"></div>
+      <span>PlugAI</span>
+    </a>
+    <div class="nav-menu" id="navMenu">
+      <a href="features.html">Features</a>
+      <a href="enterprise.html">Enterprise</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html" class="nav-cta">Request Demo</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero hero-dark">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow hero-anim-1">Enterprise AI Platform</div>
+    <h1 class="hero-anim-2">Plug in your knowledge.<br>Let <span class="hero-gradient-text">AI agents</span> do the rest.</h1>
+    <p class="hero-sub hero-anim-3">The world's first Agentic Knowledge OS — unify, certify, and act on all enterprise knowledge from one intelligent platform. Semantic search, autonomous agents, and compliance-grade governance.</p>
+    <div class="hero-actions hero-anim-4">
+      <a class="btn btn-primary" href="contact.html">Schedule a Demo &#8594;</a>
+      <a class="btn btn-ghost-dark" href="features.html">Explore Platform</a>
+    </div>
+  </div>
+
+  <!-- DASHBOARD MOCK -->
+  <div class="mock-frame hero-anim-5" style="margin-top:3.5rem;">
+    <div class="mock-bar">
+      <div class="mock-dot mock-dot-r"></div>
+      <div class="mock-dot mock-dot-y"></div>
+      <div class="mock-dot mock-dot-g"></div>
+      <div class="mock-url">app.plugai.io/dashboard</div>
+    </div>
+    <div class="mock-body">
+      <div class="mock-sb">
+        <div class="mock-sb-logo">
+          <div class="mock-sb-logo-mark"></div>
+          <span>PlugAI</span>
+        </div>
+        <div class="mock-sb-sec">Workspace</div>
+        <div class="mock-sb-item active">&#9632; Dashboard</div>
+        <div class="mock-sb-item">&#128218; Knowledge</div>
+        <div class="mock-sb-item">&#128269; Search</div>
+        <div class="mock-sb-item">&#128172; AI Chat</div>
+        <div class="mock-sb-sec">Build</div>
+        <div class="mock-sb-item">&#128279; Connectors</div>
+        <div class="mock-sb-item">&#9881; Agents</div>
+        <div class="mock-sb-sec">Insights</div>
+        <div class="mock-sb-item">&#128202; Analytics</div>
+        <div class="mock-sb-item">&#128200; Tracing</div>
+      </div>
+      <div class="mock-main">
+        <div class="mock-hdr">
+          <h3>Overview</h3>
+          <div class="mock-live">Live &middot; 30s</div>
+        </div>
+        <div class="mock-kpis">
+          <div class="mock-kpi"><div class="mock-kpi-lbl">Articles</div><div class="mock-kpi-val" style="color:var(--gold)">12,847</div></div>
+          <div class="mock-kpi"><div class="mock-kpi-lbl">Searches 30d</div><div class="mock-kpi-val" style="color:var(--sky)">14.2k</div></div>
+          <div class="mock-kpi"><div class="mock-kpi-lbl">Agent Runs</div><div class="mock-kpi-val" style="color:var(--violet)">3,410</div></div>
+          <div class="mock-kpi"><div class="mock-kpi-lbl">Connectors</div><div class="mock-kpi-val" style="color:var(--teal-light)">28</div></div>
+        </div>
+        <div class="mock-charts">
+          <div class="mock-chart">
+            <div class="mock-chart-lbl">Search Volume (14d)</div>
+            <div class="mock-bars-row">
+              <div class="mock-bar-col" style="height:42%;animation-delay:.1s"></div>
+              <div class="mock-bar-col" style="height:58%;animation-delay:.14s"></div>
+              <div class="mock-bar-col" style="height:35%;animation-delay:.18s"></div>
+              <div class="mock-bar-col" style="height:72%;animation-delay:.22s"></div>
+              <div class="mock-bar-col" style="height:50%;animation-delay:.26s"></div>
+              <div class="mock-bar-col" style="height:65%;animation-delay:.3s"></div>
+              <div class="mock-bar-col" style="height:80%;animation-delay:.34s"></div>
+              <div class="mock-bar-col" style="height:55%;animation-delay:.38s"></div>
+              <div class="mock-bar-col" style="height:88%;animation-delay:.42s"></div>
+              <div class="mock-bar-col" style="height:68%;animation-delay:.46s"></div>
+              <div class="mock-bar-col" style="height:82%;animation-delay:.5s"></div>
+              <div class="mock-bar-col" style="height:60%;animation-delay:.54s"></div>
+              <div class="mock-bar-col" style="height:75%;animation-delay:.58s"></div>
+              <div class="mock-bar-col" style="height:92%;animation-delay:.62s"></div>
+            </div>
+          </div>
+          <div class="mock-chart">
+            <div class="mock-chart-lbl">Knowledge Health</div>
+            <div class="mock-donut"></div>
+          </div>
+        </div>
+        <div class="mock-activity">
+          <div class="mock-activity-lbl">Live Activity</div>
+          <div class="mock-activity-row"><div class="mock-activity-dot" style="background:var(--teal-light)"></div>Search &middot; "GDPR deletion policy" &middot; 320ms</div>
+          <div class="mock-activity-row"><div class="mock-activity-dot" style="background:var(--violet)"></div>Agent &middot; Ticket triage workflow &middot; 1.2s</div>
+          <div class="mock-activity-row"><div class="mock-activity-dot" style="background:var(--gold)"></div>Certify &middot; Incident Playbook v8 &middot; SME Verified</div>
+          <div class="mock-activity-row"><div class="mock-activity-dot" style="background:var(--sky)"></div>Sync &middot; Confluence &rarr; Cloud Architecture &middot; 142 docs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS BAR ═══ -->
+<section class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="rv">
+      <div class="stat-num"><span data-count="19" data-suffix="%">0%</span></div>
+      <div class="stat-label">of workweek lost searching for information</div>
+    </div>
+    <div class="rv anim-delay-1">
+      <div class="stat-num">$<span data-count="47" data-suffix="B">0B</span></div>
+      <div class="stat-label">knowledge management market by 2028</div>
+    </div>
+    <div class="rv anim-delay-2">
+      <div class="stat-num"><span data-count="30" data-suffix="%">0%</span></div>
+      <div class="stat-label">enterprise knowledge becomes stale in 6 months</div>
+    </div>
+    <div class="rv anim-delay-3">
+      <div class="stat-num"><span data-count="6" data-suffix="x">0x</span></div>
+      <div class="stat-label">faster answers with AI-powered hybrid retrieval</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="label rv">The Problem</div>
+    <h2 class="stitle rv">Knowledge is your most valuable asset.<br>It's also your most wasted one.</h2>
+    <p class="sdesc rv">Enterprise knowledge is scattered across dozens of tools, trapped in silos, and decaying without oversight.</p>
+
+    <div class="grid-3">
+      <div class="card card-accent rv">
+        <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:var(--accent);line-height:1;margin-bottom:.5rem;">73%</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.35rem;">Knowledge Silos</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.5;">Critical information locked in Slack threads, Confluence wikis, Google Drives, and email chains — invisible to the rest of the organization.</p>
+      </div>
+      <div class="card card-accent rv anim-delay-1">
+        <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:var(--gold);line-height:1;margin-bottom:.5rem;">$12k</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.35rem;">Cost Per Employee</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.5;">Annual productivity loss from employees re-creating knowledge that already exists but cannot be found. Multiply by headcount.</p>
+      </div>
+      <div class="card card-accent rv anim-delay-2">
+        <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:var(--teal);line-height:1;margin-bottom:.5rem;">Zero</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.35rem;">Quality Assurance</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.5;">No certification workflow. No version control. No compliance audit trail. Outdated docs circulate as truth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THREE PILLARS ═══ -->
+<section class="sec-dark">
+  <div class="sec-inner">
+    <div class="label label-dark rv">The Solution</div>
+    <h2 class="stitle rv">Three layers that transform how<br>your organization thinks.</h2>
+    <p class="sdesc sdesc-dark rv">PlugAI is not another search tool. It's the operating system for enterprise knowledge.</p>
+
+    <div class="grid-3">
+      <div class="card-dark pillar-card rv">
+        <div class="icon-box" style="background:rgba(196,93,62,.12);">&#128218;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:.5rem;">Knowledge Intelligence</h3>
+        <p style="font-size:.82rem;color:rgba(244,241,236,.5);line-height:1.6;margin-bottom:1rem;">Hybrid semantic search combining keyword precision with deep AI understanding. Every answer grounded in your certified knowledge base.</p>
+        <ul style="display:flex;flex-direction:column;gap:.35rem;">
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>BM25 + Vector hybrid with RRF fusion</li>
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>1024-dim embeddings, 6 LLM providers</li>
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>Clearance-filtered results at query time</li>
+        </ul>
+      </div>
+      <div class="card-dark pillar-card rv anim-delay-1">
+        <div class="icon-box" style="background:rgba(42,125,110,.12);">&#129302;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:.5rem;">Agentic Action</h3>
+        <p style="font-size:.82rem;color:rgba(244,241,236,.5);line-height:1.6;margin-bottom:1rem;">Go beyond Q&amp;A. Build autonomous AI agent workflows that reason, act, and automate across your knowledge ecosystem.</p>
+        <ul style="display:flex;flex-direction:column;gap:.35rem;">
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;"></span>LangGraph canvas workflow builder</li>
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;"></span>20+ built-in tools for RAG &amp; actions</li>
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;"></span>CwyoD embeddable chat widget</li>
+        </ul>
+      </div>
+      <div class="card-dark pillar-card rv anim-delay-2">
+        <div class="icon-box" style="background:rgba(201,168,76,.12);">&#128274;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:.5rem;">Enterprise Trust</h3>
+        <p style="font-size:.82rem;color:rgba(244,241,236,.5);line-height:1.6;margin-bottom:1rem;">The compliance and governance layer that makes AI safe for regulated industries. Every action audited, every answer certified.</p>
+        <ul style="display:flex;flex-direction:column;gap:.35rem;">
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></span>6-role RBAC, 4-tier classification</li>
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></span>SME certification workflow</li>
+          <li style="font-size:.72rem;color:rgba(244,241,236,.55);display:flex;align-items:center;gap:.4rem;"><span style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></span>FedRAMP &amp; HIPAA ready</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES PREVIEW ═══ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="label rv">Platform Highlights</div>
+    <h2 class="stitle rv">See it in action.</h2>
+    <p class="sdesc rv">Three flagship capabilities that define the PlugAI experience.</p>
+
+    <!-- CwyoD Mock -->
+    <div class="grid-2 rv" style="margin-bottom:3rem;align-items:center;">
+      <div>
+        <div class="badge" style="background:rgba(42,125,110,.1);color:var(--teal);margin-bottom:1rem;">Chat With Your Own Data</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.6rem;">AI chat grounded in your knowledge</h3>
+        <p style="font-size:.9rem;color:var(--slate);line-height:1.7;margin-bottom:1.25rem;">Every answer comes with numbered citations, confidence scores, and source links. Embed as a widget on any website with domain-whitelisted API keys.</p>
+        <ul style="display:flex;flex-direction:column;gap:.4rem;">
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>Inline citations with relevance %</li>
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>Confidence scores (0-97%)</li>
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>Embeddable widget for portals</li>
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>Conversation export &amp; feedback</li>
+        </ul>
+      </div>
+      <div class="cwyod-mock">
+        <div class="cwyod-msg cwyod-user">What's our SLA for P1 incidents?</div>
+        <div class="cwyod-msg cwyod-ai">
+          For P1 (Critical) incidents, the SLA requires <strong>15-minute acknowledgment</strong> and <strong>4-hour resolution</strong>.<span class="cwyod-cite">1</span> Escalation to VP Engineering occurs at the 2-hour mark if unresolved.<span class="cwyod-cite">2</span>
+          <div class="cwyod-conf">
+            Confidence: 94%
+            <div class="cwyod-conf-bar"><div class="cwyod-conf-fill" style="width:94%"></div></div>
+          </div>
+        </div>
+        <div class="cwyod-msg cwyod-user">Who's the current on-call?</div>
+        <div class="cwyod-msg cwyod-ai">
+          The current on-call engineer is <strong>Priya Sharma</strong> (rotation: Mar 24-30).<span class="cwyod-cite">3</span> Backup: Amir Khan.<span class="cwyod-cite">3</span>
+          <div class="cwyod-conf">
+            Confidence: 91%
+            <div class="cwyod-conf-bar"><div class="cwyod-conf-fill" style="width:91%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent Builder Mock -->
+    <div class="grid-2 rv" style="align-items:center;">
+      <div class="agent-mock" style="order:0;">
+        <div style="font-size:.55rem;color:rgba(244,241,236,.3);font-family:'JetBrains Mono',monospace;margin-bottom:.6rem;letter-spacing:.08em;">AGENT WORKFLOW</div>
+        <div class="agent-node">
+          <div class="agent-node-icon" style="background:rgba(196,93,62,.15);">&#9881;</div>
+          <div><strong style="color:var(--paper);font-size:.7rem;">Trigger</strong><br><span style="font-size:.55rem;color:rgba(244,241,236,.35);">New support ticket received</span></div>
+        </div>
+        <div class="agent-arrow">&#9660;</div>
+        <div class="agent-node">
+          <div class="agent-node-icon" style="background:rgba(42,125,110,.15);">&#128269;</div>
+          <div><strong style="color:var(--paper);font-size:.7rem;">Knowledge Search</strong><br><span style="font-size:.55rem;color:rgba(244,241,236,.35);">Hybrid retrieval from SRE Runbooks</span></div>
+        </div>
+        <div class="agent-arrow">&#9660;</div>
+        <div class="agent-node">
+          <div class="agent-node-icon" style="background:rgba(123,94,167,.15);">&#129302;</div>
+          <div><strong style="color:var(--paper);font-size:.7rem;">AI Reasoning</strong><br><span style="font-size:.55rem;color:rgba(244,241,236,.35);">Classify severity, draft response</span></div>
+        </div>
+        <div class="agent-arrow">&#9660;</div>
+        <div class="agent-node">
+          <div class="agent-node-icon" style="background:rgba(201,168,76,.15);">&#128232;</div>
+          <div><strong style="color:var(--paper);font-size:.7rem;">Route &amp; Notify</strong><br><span style="font-size:.55rem;color:rgba(244,241,236,.35);">Assign to on-call, send Slack alert</span></div>
+        </div>
+      </div>
+      <div style="order:1;">
+        <div class="badge" style="background:rgba(123,94,167,.1);color:var(--violet);margin-bottom:1rem;">Agentic Workflows</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.6rem;">Autonomous AI that acts on knowledge</h3>
+        <p style="font-size:.9rem;color:var(--slate);line-height:1.7;margin-bottom:1.25rem;">Design AI workflows on a visual canvas. Agents search, reason, execute tools, and chain decisions — powered by LangGraph with real-time streaming.</p>
+        <ul style="display:flex;flex-direction:column;gap:.4rem;">
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>Canvas drag-drop flow designer</li>
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>20+ built-in tools</li>
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>Real-time SSE streaming output</li>
+          <li style="font-size:.8rem;display:flex;align-items:center;gap:.5rem;"><span class="chk chk-y" style="width:18px;height:18px;font-size:.55rem;">&#10003;</span>Cost tracking per run</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONNECTORS MARQUEE ═══ -->
+<section class="sec-warm">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label rv" style="justify-content:center;">Universal Connector Hub</div>
+    <h2 class="stitle rv">Plug into your entire ecosystem.</h2>
+    <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">10+ enterprise platforms. Encrypted credentials. Incremental sync. One-click connect.</p>
+  </div>
+  <div class="marquee-wrap rv">
+    <div class="marquee-track">
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(74,21,75,.08);">&#128172;</div>Slack</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,82,204,.08);">&#128214;</div>Confluence</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,82,204,.08);">&#9744;</div>Jira</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(10,14,23,.05);">&#128187;</div>GitHub</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(66,133,244,.08);">&#128193;</div>Google Drive</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(10,14,23,.05);">&#128221;</div>Notion</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,120,212,.08);">&#128194;</div>SharePoint</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(3,54,61,.08);">&#127899;</div>Zendesk</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(41,98,41,.08);">&#9881;</div>ServiceNow</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,112,210,.08);">&#9729;</div>Salesforce</div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(74,21,75,.08);">&#128172;</div>Slack</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,82,204,.08);">&#128214;</div>Confluence</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,82,204,.08);">&#9744;</div>Jira</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(10,14,23,.05);">&#128187;</div>GitHub</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(66,133,244,.08);">&#128193;</div>Google Drive</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(10,14,23,.05);">&#128221;</div>Notion</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,120,212,.08);">&#128194;</div>SharePoint</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(3,54,61,.08);">&#127899;</div>Zendesk</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(41,98,41,.08);">&#9881;</div>ServiceNow</div>
+      <div class="marquee-item"><div class="marquee-icon" style="background:rgba(0,112,210,.08);">&#9729;</div>Salesforce</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MULTI-LLM ═══ -->
+<section class="sec-dark">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label label-dark rv" style="justify-content:center;">Provider Agnostic</div>
+    <h2 class="stitle rv">Your models. Your choice. Zero lock-in.</h2>
+    <p class="sdesc sdesc-dark rv" style="margin-left:auto;margin-right:auto;">6 providers. 18+ models. Full local support for air-gapped deployments.</p>
+
+    <div class="grid-3 rv" style="margin-top:2rem;">
+      <div class="card-dark" style="text-align:left;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(196,93,62,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--accent-glow);">A</div>
+          <strong style="font-size:.88rem;">Anthropic</strong>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;">
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Claude Opus 4.6</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Claude Sonnet 4.6</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Claude Haiku 4.5</span>
+        </div>
+      </div>
+      <div class="card-dark" style="text-align:left;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(42,125,110,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--teal-light);">O</div>
+          <strong style="font-size:.88rem;">OpenAI</strong>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;">
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">GPT-4o</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">GPT-4o Mini</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">o3 Mini</span>
+        </div>
+      </div>
+      <div class="card-dark" style="text-align:left;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(66,133,244,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#60a5fa;">G</div>
+          <strong style="font-size:.88rem;">Google Gemini</strong>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;">
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Gemini 2.5 Pro</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Gemini 2.5 Flash</span>
+        </div>
+      </div>
+      <div class="card-dark" style="text-align:left;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,153,0,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#ff9900;">B</div>
+          <strong style="font-size:.88rem;">AWS Bedrock</strong>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;">
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Claude 3.5 Sonnet</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Titan Text</span>
+        </div>
+      </div>
+      <div class="card-dark" style="text-align:left;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,120,212,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#5ba3e6;">Az</div>
+          <strong style="font-size:.88rem;">Azure OpenAI</strong>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;">
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">GPT-4o</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">GPT-4o Mini</span>
+        </div>
+      </div>
+      <div class="card-dark" style="text-align:left;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(201,168,76,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--gold-light);">L</div>
+          <strong style="font-size:.88rem;">Local (Air-Gapped)</strong>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;">
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Llama 3</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Mistral</span>
+          <span class="tag" style="background:rgba(244,241,236,.05);color:var(--text);">Codestral</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUICK PRICING ═══ -->
+<section class="sec-warm">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label rv" style="justify-content:center;">Pricing</div>
+    <h2 class="stitle rv">Start free. Scale with confidence.</h2>
+    <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Transparent seat-based pricing. No per-query fees.</p>
+
+    <div class="grid-4 rv" style="text-align:left;">
+      <div class="price-card">
+        <span class="price-tier" style="color:var(--slate);">Starter</span>
+        <div class="price-amount">Free</div>
+        <div class="price-label">forever</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Up to 20 users</li>
+          <li>1,000 articles</li>
+          <li>5 connectors</li>
+          <li>Basic semantic search</li>
+          <li>Community support</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <span class="price-tier" style="color:var(--teal);">Professional</span>
+        <div class="price-amount">$25</div>
+        <div class="price-label">per user / month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited users &amp; articles</li>
+          <li>50 connectors</li>
+          <li>Graph RAG search</li>
+          <li>API access + widget</li>
+          <li>Agent builder</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="price-popular">Most Popular</div>
+        <span class="price-tier" style="color:var(--gold-light);">Enterprise</span>
+        <div class="price-amount">$55</div>
+        <div class="price-label">per user / month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Everything in Professional</li>
+          <li>Unlimited connectors</li>
+          <li>Multiple workspaces</li>
+          <li>SME certification workflow</li>
+          <li>SSO &amp; compliance tools</li>
+          <li>Dedicated CSM</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <span class="price-tier" style="color:var(--accent-glow);">Enterprise+</span>
+        <div class="price-amount">Custom</div>
+        <div class="price-label">license key required</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Multi-org licensing</li>
+          <li>Private cloud deploy</li>
+          <li>Local / private LLMs</li>
+          <li>FedRAMP compliance</li>
+          <li>Custom SLAs</li>
+          <li>Dedicated support team</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;" class="rv">
+      <a href="pricing.html" class="btn btn-ghost" style="font-size:.82rem;">View Full Comparison &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+  <div class="cta-inner rv">
+    <h2>Ready to turn your knowledge<br>into your competitive edge?</h2>
+    <p>See how PlugAI can transform knowledge management for your organization. Personalized demo tailored to your industry and scale.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-primary" href="contact.html">Schedule a Demo &#8594;</a>
+      <a class="btn btn-ghost-dark" href="roadmap.html">View Future Roadmap</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-mark"><img src="plugai-logo-white.png" alt="PlugAI"></div>
+        <span style="color:var(--paper);">PlugAI</span>
+      </a>
+      <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Enterprise</h4>
+      <a href="enterprise.html">Security</a>
+      <a href="enterprise.html">Compliance</a>
+      <a href="enterprise.html">RBAC</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="contact.html">Contact</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

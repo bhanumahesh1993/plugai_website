@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlugAI — Features · Every Capability, Zero Compromise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ═══════════════════════════════════════════
+   PAGE-SPECIFIC: Features
+   ═══════════════════════════════════════════ */
+
+/* Hero entrance animations */
+.hero-anim-1{animation:fadeUp .8s ease-out both;}
+.hero-anim-2{animation:fadeUp .8s ease-out .12s both;}
+.hero-anim-3{animation:fadeUp .8s ease-out .24s both;}
+.hero-anim-4{animation:fadeUp .8s ease-out .36s both;}
+
+/* Gradient headline shimmer */
+.feat-gradient{
+  background:linear-gradient(135deg,var(--accent-glow) 0%,var(--gold-light) 20%,var(--teal-light) 40%,var(--violet) 60%,var(--accent-glow) 80%,var(--gold-light) 100%);
+  background-size:400% 400%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShift 6s ease-in-out infinite;
+}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Section gradient titles */
+.sec-gradient-teal{
+  background:linear-gradient(135deg,var(--teal-light),var(--sky),var(--teal-light));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShift 7s ease-in-out infinite;
+}
+.sec-gradient-accent{
+  background:linear-gradient(135deg,var(--accent-glow),var(--gold-light),var(--accent-glow));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShift 7s ease-in-out infinite;
+}
+.sec-gradient-violet{
+  background:linear-gradient(135deg,var(--violet),var(--sky),var(--violet));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShift 7s ease-in-out infinite;
+}
+.sec-gradient-gold{
+  background:linear-gradient(135deg,var(--gold-light),var(--accent-glow),var(--gold-light));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShift 7s ease-in-out infinite;
+}
+.sec-gradient-sky{
+  background:linear-gradient(135deg,var(--sky),var(--teal-light),var(--sky));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShift 7s ease-in-out infinite;
+}
+
+/* Floating orbs for hero */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 14s ease-in-out infinite;}
+.orb-a{width:400px;height:400px;top:-5%;left:-4%;background:rgba(196,93,62,.06);animation-delay:0s;}
+.orb-b{width:300px;height:300px;bottom:8%;right:-2%;background:rgba(42,125,110,.05);animation-delay:-5s;}
+.orb-c{width:200px;height:200px;top:40%;right:12%;background:rgba(201,168,76,.04);animation-delay:-9s;}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(18px,-12px) scale(1.04)}
+  66%{transform:translate(-12px,8px) scale(.96)}
+}
+
+/* Feature row layout */
+.feat-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+.feat-row-reverse .feat-text{order:2;}
+.feat-row-reverse .feat-mock{order:1;}
+.feat-text{max-width:540px;}
+.feat-list{list-style:none;padding:0;margin:0;}
+.feat-list li{
+  display:flex;align-items:flex-start;gap:.65rem;
+  font-size:.88rem;color:var(--slate);line-height:1.55;
+  padding:.45rem 0;
+}
+.feat-list-dark li{color:rgba(244,241,236,.5);}
+.feat-list li::before{
+  content:'\2192';font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;flex-shrink:0;margin-top:.2rem;color:var(--accent);
+}
+.feat-list-dark li::before{color:var(--gold-light);}
+
+/* Mini badge inline */
+.feat-badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-family:'JetBrains Mono',monospace;font-size:.56rem;font-weight:600;
+  padding:.15rem .5rem;border-radius:4px;letter-spacing:.04em;
+  margin-left:.3rem;vertical-align:middle;
+}
+.fb-teal{background:rgba(42,125,110,.12);color:var(--teal);}
+.fb-accent{background:rgba(196,93,62,.12);color:var(--accent);}
+.fb-gold{background:rgba(201,168,76,.12);color:var(--gold);}
+.fb-violet{background:rgba(123,94,167,.12);color:var(--violet);}
+.fb-sky{background:rgba(74,127,181,.12);color:var(--sky);}
+
+/* ─── MOCK UI CARDS ─── */
+.mock-card{
+  background:var(--ink);border-radius:16px;overflow:hidden;
+  border:1px solid var(--edge-d);
+  box-shadow:0 4px 40px rgba(0,0,0,.25),0 0 60px rgba(196,93,62,.03);
+  position:relative;
+}
+.mock-card::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(circle at 70% 20%,rgba(196,93,62,.05),transparent 60%);
+  pointer-events:none;
+}
+.mock-titlebar{
+  background:var(--surface);padding:.5rem .75rem;
+  display:flex;align-items:center;gap:.4rem;
+  border-bottom:1px solid var(--edge-d);
+}
+.mock-titlebar .mock-dot{width:8px;height:8px;}
+.mock-titlebar-label{
+  flex:1;text-align:center;
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;
+  color:rgba(244,241,236,.2);
+}
+.mock-content{padding:1rem;position:relative;}
+
+/* Search mock */
+.search-bar{
+  background:rgba(244,241,236,.05);border:1px solid var(--edge-d);
+  border-radius:8px;padding:.55rem .75rem;
+  display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;
+}
+.search-bar-icon{color:rgba(244,241,236,.25);font-size:.75rem;}
+.search-bar-text{
+  font-size:.68rem;color:rgba(244,241,236,.5);flex:1;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.search-bar-badge{
+  font-family:'JetBrains Mono',monospace;font-size:.42rem;
+  padding:.12rem .35rem;border-radius:3px;
+  background:rgba(42,125,110,.15);color:var(--teal-light);
+  letter-spacing:.04em;
+}
+.search-result{
+  background:rgba(244,241,236,.03);border:1px solid var(--edge-d);
+  border-radius:8px;padding:.65rem .75rem;margin-bottom:.45rem;
+  transition:all .3s;
+}
+.search-result:hover{background:rgba(244,241,236,.06);border-color:rgba(244,241,236,.12);}
+.sr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem;}
+.sr-title{font-size:.68rem;font-weight:600;color:var(--paper);}
+.sr-score{
+  font-family:'JetBrains Mono',monospace;font-size:.48rem;
+  padding:.1rem .3rem;border-radius:3px;
+  background:rgba(196,93,62,.1);color:var(--accent-glow);
+}
+.sr-snippet{font-size:.56rem;color:rgba(244,241,236,.35);line-height:1.5;}
+.sr-badges{display:flex;gap:.3rem;margin-top:.35rem;}
+.sr-badge{
+  font-family:'JetBrains Mono',monospace;font-size:.4rem;
+  padding:.08rem .3rem;border-radius:3px;letter-spacing:.03em;
+}
+.sr-badge-cls{background:rgba(74,127,181,.12);color:var(--sky);}
+.sr-badge-src{background:rgba(201,168,76,.12);color:var(--gold);}
+.sr-badge-ws{background:rgba(123,94,167,.12);color:var(--violet);}
+
+/* Chat mock */
+.chat-messages{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.65rem;}
+.chat-msg{
+  max-width:85%;padding:.55rem .7rem;border-radius:10px;
+  font-size:.62rem;line-height:1.55;
+}
+.chat-user{
+  align-self:flex-end;
+  background:var(--accent);color:white;
+  border-bottom-right-radius:3px;
+}
+.chat-ai{
+  align-self:flex-start;
+  background:rgba(244,241,236,.06);color:rgba(244,241,236,.7);
+  border:1px solid var(--edge-d);border-bottom-left-radius:3px;
+}
+.chat-citation{
+  font-family:'JetBrains Mono',monospace;font-size:.46rem;
+  padding:.05rem .2rem;border-radius:2px;
+  background:rgba(42,125,110,.15);color:var(--teal-light);
+  cursor:pointer;
+}
+.chat-confidence{
+  display:flex;align-items:center;gap:.4rem;margin-top:.35rem;
+  font-size:.46rem;color:rgba(244,241,236,.3);
+  font-family:'JetBrains Mono',monospace;
+}
+.conf-bar{
+  flex:1;height:4px;background:rgba(244,241,236,.06);border-radius:2px;overflow:hidden;
+}
+.conf-fill{
+  height:100%;border-radius:2px;
+  animation:confGrow 1.5s ease-out both;
+}
+.conf-fill-high{background:linear-gradient(90deg,var(--teal),var(--teal-light));width:92%;}
+.conf-fill-med{background:linear-gradient(90deg,var(--gold),var(--gold-light));width:74%;}
+@keyframes confGrow{from{width:0}}
+.chat-input{
+  background:rgba(244,241,236,.04);border:1px solid var(--edge-d);
+  border-radius:8px;padding:.45rem .6rem;
+  display:flex;align-items:center;gap:.4rem;
+}
+.chat-input-text{font-size:.56rem;color:rgba(244,241,236,.2);flex:1;}
+.chat-input-btn{
+  width:22px;height:22px;border-radius:5px;
+  background:var(--accent);display:flex;align-items:center;justify-content:center;
+  font-size:.5rem;color:white;
+}
+
+/* Agent canvas mock */
+.canvas-nodes{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;justify-content:center;margin-bottom:.6rem;}
+.canvas-node{
+  background:rgba(244,241,236,.05);border:1px solid var(--edge-d);
+  border-radius:8px;padding:.4rem .6rem;
+  text-align:center;min-width:70px;transition:all .3s;
+}
+.canvas-node:hover{background:rgba(244,241,236,.08);border-color:rgba(244,241,236,.15);}
+.cn-icon{font-size:.8rem;margin-bottom:.15rem;}
+.cn-label{font-family:'JetBrains Mono',monospace;font-size:.42rem;color:rgba(244,241,236,.5);letter-spacing:.03em;}
+.canvas-arrow{color:rgba(244,241,236,.15);font-size:.7rem;}
+.canvas-tools{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;
+  margin-top:.5rem;
+}
+.canvas-tool{
+  background:rgba(244,241,236,.03);border:1px solid var(--edge-d);
+  border-radius:5px;padding:.25rem .3rem;text-align:center;
+  font-family:'JetBrains Mono',monospace;font-size:.38rem;
+  color:rgba(244,241,236,.35);letter-spacing:.02em;
+}
+.canvas-meta{
+  display:flex;justify-content:space-between;margin-top:.5rem;
+  font-family:'JetBrains Mono',monospace;font-size:.42rem;
+  color:rgba(244,241,236,.25);
+}
+
+/* Knowledge mock */
+.kb-header{
+  display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;flex-wrap:wrap;
+}
+.kb-badge{
+  font-family:'JetBrains Mono',monospace;font-size:.42rem;font-weight:600;
+  padding:.12rem .35rem;border-radius:3px;letter-spacing:.04em;
+}
+.kb-published{background:rgba(42,125,110,.15);color:var(--teal-light);}
+.kb-confidential{background:rgba(196,93,62,.15);color:var(--accent-glow);}
+.kb-gold{background:rgba(201,168,76,.15);color:var(--gold-light);}
+.kb-title{
+  font-size:.78rem;font-weight:600;color:var(--paper);
+  margin-bottom:.5rem;
+}
+.kb-meta{
+  font-family:'JetBrains Mono',monospace;font-size:.42rem;
+  color:rgba(244,241,236,.25);margin-bottom:.6rem;
+  display:flex;gap:.8rem;
+}
+.kb-body{
+  font-size:.56rem;color:rgba(244,241,236,.35);line-height:1.6;
+  border-left:2px solid var(--edge-d);padding-left:.6rem;margin-bottom:.6rem;
+}
+.kb-versions{margin-top:.5rem;}
+.kb-version-title{
+  font-family:'JetBrains Mono',monospace;font-size:.44rem;font-weight:600;
+  color:rgba(244,241,236,.3);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:.3rem;
+}
+.kb-version-row{
+  display:flex;align-items:center;gap:.5rem;padding:.2rem 0;
+  font-size:.48rem;color:rgba(244,241,236,.35);
+}
+.kb-version-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.kb-version-active{background:var(--teal-light);}
+.kb-version-old{background:rgba(244,241,236,.15);}
+.kb-chunks{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;margin-top:.5rem;
+}
+.kb-chunk{
+  background:rgba(244,241,236,.03);border:1px solid var(--edge-d);
+  border-radius:5px;padding:.3rem .4rem;text-align:center;
+}
+.kb-chunk-val{font-family:'DM Serif Display',serif;font-size:.7rem;color:var(--paper);}
+.kb-chunk-lbl{font-size:.38rem;color:rgba(244,241,236,.25);}
+
+/* Analytics mock */
+.analytics-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin-bottom:.55rem;}
+.analytics-kpi{
+  background:rgba(244,241,236,.03);border:1px solid var(--edge-d);
+  border-radius:6px;padding:.35rem .45rem;
+}
+.ak-label{font-size:.4rem;color:rgba(244,241,236,.25);margin-bottom:.1rem;}
+.ak-value{font-family:'DM Serif Display',serif;font-size:.75rem;color:var(--paper);}
+.ak-change{
+  font-family:'JetBrains Mono',monospace;font-size:.38rem;
+  margin-top:.1rem;
+}
+.ak-up{color:var(--teal-light);}
+.ak-down{color:var(--accent-glow);}
+.analytics-charts{display:grid;grid-template-columns:1.4fr 1fr;gap:.35rem;}
+.analytics-chart{
+  background:rgba(244,241,236,.03);border:1px solid var(--edge-d);
+  border-radius:6px;padding:.45rem;
+}
+.ac-label{font-size:.42rem;color:rgba(244,241,236,.25);margin-bottom:.35rem;}
+.an-bars{display:flex;align-items:flex-end;gap:2px;height:55px;}
+.an-bar{
+  flex:1;border-radius:2px 2px 0 0;
+  animation:barUp 1.2s ease-out both;
+}
+@keyframes barUp{from{height:0 !important}}
+.an-bar-1{background:linear-gradient(180deg,var(--accent),rgba(196,93,62,.25));}
+.an-bar-2{background:linear-gradient(180deg,var(--teal),rgba(42,125,110,.25));}
+.an-bar-3{background:linear-gradient(180deg,var(--sky),rgba(74,127,181,.25));}
+.an-donut{
+  width:55px;height:55px;border-radius:50%;margin:0 auto;position:relative;
+  background:conic-gradient(
+    var(--teal) 0deg 100deg,
+    var(--gold) 100deg 190deg,
+    var(--accent) 190deg 270deg,
+    var(--violet) 270deg 330deg,
+    var(--sky) 330deg 360deg
+  );
+}
+.an-donut::after{
+  content:'94%';position:absolute;inset:7px;border-radius:50%;
+  background:rgba(10,14,23,.95);border:1px solid var(--edge-d);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:.55rem;color:var(--paper);
+}
+.analytics-alert{
+  background:rgba(196,93,62,.06);border:1px solid rgba(196,93,62,.15);
+  border-radius:6px;padding:.35rem .5rem;margin-top:.35rem;
+  display:flex;align-items:center;gap:.35rem;
+}
+.alert-icon{font-size:.6rem;}
+.alert-text{font-size:.44rem;color:rgba(244,241,236,.4);}
+.alert-badge{
+  font-family:'JetBrains Mono',monospace;font-size:.36rem;
+  padding:.08rem .25rem;border-radius:3px;
+  background:rgba(196,93,62,.15);color:var(--accent-glow);
+  margin-left:auto;
+}
+
+/* Animated bar delays for analytics */
+.an-bar:nth-child(1){animation-delay:0s;}
+.an-bar:nth-child(2){animation-delay:.08s;}
+.an-bar:nth-child(3){animation-delay:.16s;}
+.an-bar:nth-child(4){animation-delay:.24s;}
+.an-bar:nth-child(5){animation-delay:.32s;}
+.an-bar:nth-child(6){animation-delay:.40s;}
+.an-bar:nth-child(7){animation-delay:.48s;}
+.an-bar:nth-child(8){animation-delay:.56s;}
+
+/* Stagger reveal delays */
+.rv-d1{transition-delay:.1s;}
+.rv-d2{transition-delay:.2s;}
+.rv-d3{transition-delay:.3s;}
+.rv-d4{transition-delay:.4s;}
+.rv-d5{transition-delay:.5s;}
+
+/* Glow pulse on mock cards */
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 4px 40px rgba(0,0,0,.25),0 0 60px rgba(196,93,62,.03)}
+  50%{box-shadow:0 4px 50px rgba(0,0,0,.3),0 0 80px rgba(196,93,62,.06)}
+}
+.mock-card{animation:glowPulse 4s ease-in-out infinite;}
+
+/* Hero stats pills */
+.hero-stats{
+  display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;
+  margin-top:2.5rem;
+}
+.hero-stat{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.5rem 1rem;border-radius:100px;
+  background:rgba(10,14,23,.04);border:1px solid var(--edge);
+}
+.hs-num{
+  font-family:'DM Serif Display',serif;font-size:1.1rem;
+  color:var(--ink);
+}
+.hs-label{font-size:.72rem;color:var(--slate);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .feat-row{grid-template-columns:1fr;gap:2.5rem;}
+  .feat-row-reverse .feat-text{order:1;}
+  .feat-row-reverse .feat-mock{order:2;}
+  .feat-text{max-width:100%;}
+}
+@media(max-width:768px){
+  .hero-stats{flex-direction:column;align-items:center;}
+  .canvas-tools{grid-template-columns:repeat(3,1fr);}
+  .analytics-kpis{grid-template-columns:1fr;}
+  .analytics-charts{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-mark"><img src="plugai-logo.png" alt="PlugAI"></div>
+      <span>PlugAI</span>
+    </a>
+    <div class="nav-menu" id="navMenu">
+      <a href="features.html" style="color:var(--accent);">Features</a>
+      <a href="enterprise.html">Enterprise</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html" class="nav-cta">Request Demo</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO (LIGHT) ═══ -->
+<section class="hero hero-light">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow hero-anim-1">Platform Deep Dive</div>
+    <h1 class="hero-anim-2">Every Feature.<br><em class="feat-gradient">Zero Compromise.</em></h1>
+    <p class="hero-sub hero-anim-3">Semantic search, conversational AI, agent orchestration, knowledge management, and real-time analytics &mdash; unified in a single platform built for enterprises that refuse to settle.</p>
+    <div class="hero-actions hero-anim-4">
+      <a href="contact.html" class="btn btn-primary">Request a Demo &rarr;</a>
+      <a href="pricing.html" class="btn btn-ghost">View Pricing</a>
+    </div>
+    <div class="hero-stats hero-anim-4">
+      <div class="hero-stat"><span class="hs-num">6</span><span class="hs-label">Core Modules</span></div>
+      <div class="hero-stat"><span class="hs-num">20+</span><span class="hs-label">Agent Tools</span></div>
+      <div class="hero-stat"><span class="hs-num">1024</span><span class="hs-label">Dim Embeddings</span></div>
+      <div class="hero-stat"><span class="hs-num">SSE</span><span class="hs-label">Live Streaming</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1 — SEMANTIC SEARCH (dark bg)
+     ═══════════════════════════════════════════ -->
+<section class="sec-dark" id="search">
+  <div class="sec-inner">
+    <div class="feat-row rv">
+      <!-- TEXT -->
+      <div class="feat-text">
+        <p class="label label-dark rv rv-d1">01 &mdash; Semantic Search</p>
+        <h2 class="stitle rv rv-d2" style="color:var(--paper);">
+          <span class="sec-gradient-teal">Find anything.</span><br>Understand everything.
+        </h2>
+        <p class="sdesc sdesc-dark rv rv-d3">Hybrid BM25 + Vector search with Reciprocal Rank Fusion (K=60) delivers results that understand intent, not just keywords. Every query is security-filtered and workspace-scoped in real time.</p>
+        <ul class="feat-list feat-list-dark rv rv-d4">
+          <li>BM25 lexical + 1024-dim dense vector hybrid retrieval <span class="feat-badge fb-teal">HYBRID</span></li>
+          <li>Reciprocal Rank Fusion (RRF) with configurable K=60 blending</li>
+          <li>Clearance-level filtering &mdash; UNCLASSIFIED through TOP_SECRET</li>
+          <li>Workspace scoping with org-level isolation</li>
+          <li>Zero-result analytics with automatic gap detection</li>
+          <li>Real-time relevance scoring with explainability</li>
+        </ul>
+      </div>
+      <!-- MOCK -->
+      <div class="feat-mock rv rv-d3">
+        <div class="mock-card">
+          <div class="mock-titlebar">
+            <div class="mock-dot mock-dot-r"></div>
+            <div class="mock-dot mock-dot-y"></div>
+            <div class="mock-dot mock-dot-g"></div>
+            <span class="mock-titlebar-label">plugai.app/search</span>
+          </div>
+          <div class="mock-content">
+            <!-- Search bar -->
+            <div class="search-bar">
+              <span class="search-bar-icon">&#128269;</span>
+              <span class="search-bar-text">How do we handle GDPR data retention?</span>
+              <span class="search-bar-badge">HYBRID</span>
+            </div>
+            <!-- Results -->
+            <div class="search-result">
+              <div class="sr-top">
+                <span class="sr-title">GDPR Data Retention Policy v3.2</span>
+                <span class="sr-score">0.94</span>
+              </div>
+              <p class="sr-snippet">All personal data collected under EU jurisdiction must be retained for no longer than the period specified in the processing agreement. Automated deletion triggers at...</p>
+              <div class="sr-badges">
+                <span class="sr-badge sr-badge-cls">CONFIDENTIAL</span>
+                <span class="sr-badge sr-badge-src">KNOWLEDGE BASE</span>
+                <span class="sr-badge sr-badge-ws">Legal Ops</span>
+              </div>
+            </div>
+            <div class="search-result">
+              <div class="sr-top">
+                <span class="sr-title">EU Compliance Handbook &mdash; Chapter 7</span>
+                <span class="sr-score">0.87</span>
+              </div>
+              <p class="sr-snippet">Retention schedules must be reviewed quarterly. Data processors are required to maintain an auditable log of all deletion events per Art. 17 GDPR...</p>
+              <div class="sr-badges">
+                <span class="sr-badge sr-badge-cls">INTERNAL</span>
+                <span class="sr-badge sr-badge-src">PDF INGEST</span>
+                <span class="sr-badge sr-badge-ws">Compliance</span>
+              </div>
+            </div>
+            <div class="search-result">
+              <div class="sr-top">
+                <span class="sr-title">Data Lifecycle Management SOP</span>
+                <span class="sr-score">0.81</span>
+              </div>
+              <p class="sr-snippet">Standard operating procedure for managing data lifecycle events including creation, classification, retention, archival, and secure destruction...</p>
+              <div class="sr-badges">
+                <span class="sr-badge sr-badge-cls">UNCLASSIFIED</span>
+                <span class="sr-badge sr-badge-src">DOCX INGEST</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 — CwyoD (light bg)
+     ═══════════════════════════════════════════ -->
+<section class="sec-warm" id="cwyod">
+  <div class="sec-inner">
+    <div class="feat-row feat-row-reverse rv">
+      <!-- TEXT -->
+      <div class="feat-text">
+        <p class="label rv rv-d1">02 &mdash; Chat With Your Own Data</p>
+        <h2 class="stitle rv rv-d2">
+          <span class="sec-gradient-accent">Conversational AI</span><br>grounded in your truth.
+        </h2>
+        <p class="sdesc rv rv-d3">Multi-turn conversations with inline citations, confidence scoring, and full source traceability. Every answer is grounded in your verified knowledge &mdash; never hallucinated from thin air.</p>
+        <ul class="feat-list rv rv-d4">
+          <li>Multi-turn conversations with context window management</li>
+          <li>Inline citations <span class="feat-badge fb-teal">[1]</span><span class="feat-badge fb-sky">[2]</span> with source traceability</li>
+          <li>Per-answer confidence scoring with visual indicators</li>
+          <li>Embeddable chat widget for internal portals and apps</li>
+          <li>Full conversation export (JSON, Markdown, PDF)</li>
+          <li>User feedback loop for continuous answer quality improvement</li>
+        </ul>
+      </div>
+      <!-- MOCK -->
+      <div class="feat-mock rv rv-d3">
+        <div class="mock-card">
+          <div class="mock-titlebar">
+            <div class="mock-dot mock-dot-r"></div>
+            <div class="mock-dot mock-dot-y"></div>
+            <div class="mock-dot mock-dot-g"></div>
+            <span class="mock-titlebar-label">plugai.app/chat</span>
+          </div>
+          <div class="mock-content">
+            <div class="chat-messages">
+              <div class="chat-msg chat-user">What's our current SLA for Tier 1 enterprise clients?</div>
+              <div class="chat-msg chat-ai">
+                Based on the Enterprise Service Agreement <span class="chat-citation">[1]</span>, Tier 1 clients receive a <strong style="color:var(--paper);">99.95% uptime SLA</strong> with a maximum 4-hour response time for P1 incidents. The agreement also includes quarterly business reviews and a dedicated CSM. <span class="chat-citation">[2]</span>
+                <div class="chat-confidence">
+                  <span>Confidence</span>
+                  <div class="conf-bar"><div class="conf-fill conf-fill-high"></div></div>
+                  <span style="color:var(--teal-light);">92%</span>
+                </div>
+              </div>
+              <div class="chat-msg chat-user">What about penalty clauses if we miss it?</div>
+              <div class="chat-msg chat-ai">
+                The penalty structure in Section 8.3 <span class="chat-citation">[1]</span> specifies service credits: <strong style="color:var(--paper);">10% credit</strong> for 99.9%&ndash;99.95%, <strong style="color:var(--paper);">25% credit</strong> for below 99.9%, and contract termination rights below 99.5% sustained over 3 months. <span class="chat-citation">[3]</span>
+                <div class="chat-confidence">
+                  <span>Confidence</span>
+                  <div class="conf-bar"><div class="conf-fill conf-fill-med"></div></div>
+                  <span style="color:var(--gold-light);">74%</span>
+                </div>
+              </div>
+            </div>
+            <div class="chat-input">
+              <span class="chat-input-text">Ask a follow-up question...</span>
+              <div class="chat-input-btn">&uarr;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 — AGENT BUILDER (dark bg)
+     ═══════════════════════════════════════════ -->
+<section class="sec-dark" id="agents">
+  <div class="sec-inner">
+    <div class="feat-row rv">
+      <!-- TEXT -->
+      <div class="feat-text">
+        <p class="label label-dark rv rv-d1">03 &mdash; Agent Builder</p>
+        <h2 class="stitle rv rv-d2" style="color:var(--paper);">
+          <span class="sec-gradient-violet">Orchestrate intelligence</span><br>with visual workflows.
+        </h2>
+        <p class="sdesc sdesc-dark rv rv-d3">Build multi-step AI agents on a LangGraph-powered visual canvas. Wire together 20+ tools, stream results in real-time via SSE, and track every token spent.</p>
+        <ul class="feat-list feat-list-dark rv rv-d4">
+          <li>LangGraph visual canvas with drag-and-drop node editor</li>
+          <li>20+ built-in tools &mdash; search, retrieve, summarize, classify, and more</li>
+          <li>Server-Sent Events (SSE) for real-time token streaming <span class="feat-badge fb-violet">LIVE</span></li>
+          <li>Full version control with diff view and rollback</li>
+          <li>Per-agent cost tracking with budget guardrails</li>
+          <li>Multi-agent crew orchestration for complex workflows</li>
+        </ul>
+      </div>
+      <!-- MOCK -->
+      <div class="feat-mock rv rv-d3">
+        <div class="mock-card">
+          <div class="mock-titlebar">
+            <div class="mock-dot mock-dot-r"></div>
+            <div class="mock-dot mock-dot-y"></div>
+            <div class="mock-dot mock-dot-g"></div>
+            <span class="mock-titlebar-label">plugai.app/agents/builder</span>
+          </div>
+          <div class="mock-content">
+            <!-- Workflow canvas -->
+            <div class="canvas-nodes">
+              <div class="canvas-node" style="border-color:rgba(196,93,62,.3);">
+                <div class="cn-icon">&#9889;</div>
+                <div class="cn-label">TRIGGER</div>
+              </div>
+              <span class="canvas-arrow">&rarr;</span>
+              <div class="canvas-node" style="border-color:rgba(42,125,110,.3);">
+                <div class="cn-icon">&#128269;</div>
+                <div class="cn-label">SEARCH</div>
+              </div>
+              <span class="canvas-arrow">&rarr;</span>
+              <div class="canvas-node" style="border-color:rgba(123,94,167,.3);">
+                <div class="cn-icon">&#129504;</div>
+                <div class="cn-label">REASON</div>
+              </div>
+              <span class="canvas-arrow">&rarr;</span>
+              <div class="canvas-node" style="border-color:rgba(201,168,76,.3);">
+                <div class="cn-icon">&#9881;</div>
+                <div class="cn-label">ACTION</div>
+              </div>
+            </div>
+            <!-- Tools grid -->
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.4rem;color:rgba(244,241,236,.2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;">Available Tools</div>
+            <div class="canvas-tools">
+              <div class="canvas-tool">search</div>
+              <div class="canvas-tool">retrieve</div>
+              <div class="canvas-tool">summarize</div>
+              <div class="canvas-tool">classify</div>
+              <div class="canvas-tool">extract</div>
+              <div class="canvas-tool">compare</div>
+              <div class="canvas-tool">notify</div>
+              <div class="canvas-tool">webhook</div>
+              <div class="canvas-tool">translate</div>
+              <div class="canvas-tool">sentiment</div>
+              <div class="canvas-tool">write</div>
+              <div class="canvas-tool">+12 more</div>
+            </div>
+            <!-- Meta bar -->
+            <div class="canvas-meta">
+              <span>v2.4 &middot; Last edited 3h ago</span>
+              <span style="color:var(--teal-light);">&#9679; SSE streaming active</span>
+              <span>$0.042 / run avg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4 — KNOWLEDGE BASE (light bg)
+     ═══════════════════════════════════════════ -->
+<section class="sec-warm" id="knowledge">
+  <div class="sec-inner">
+    <div class="feat-row feat-row-reverse rv">
+      <!-- TEXT -->
+      <div class="feat-text">
+        <p class="label rv rv-d1">04 &mdash; Knowledge Base</p>
+        <h2 class="stitle rv rv-d2">
+          <span class="sec-gradient-gold">Curate, certify,</span><br>and control your truth.
+        </h2>
+        <p class="sdesc rv rv-d3">A rich-text knowledge management system with TipTap editor, four certification tiers, four classification levels, full version history, and multi-format document ingestion.</p>
+        <ul class="feat-list rv rv-d4">
+          <li>TipTap rich-text editor with collaborative editing</li>
+          <li>4 certification levels: DRAFT, REVIEWED, CERTIFIED, GOLD_STANDARD <span class="feat-badge fb-gold">GOLD</span></li>
+          <li>4 classification levels: UNCLASSIFIED, INTERNAL, CONFIDENTIAL, TOP_SECRET</li>
+          <li>Full version history with diff comparison and rollback</li>
+          <li>Multi-format ingestion: PDF, DOCX, XLSX, CSV with automatic chunking</li>
+          <li>Intelligent chunk management with overlap and size controls</li>
+        </ul>
+      </div>
+      <!-- MOCK -->
+      <div class="feat-mock rv rv-d3">
+        <div class="mock-card">
+          <div class="mock-titlebar">
+            <div class="mock-dot mock-dot-r"></div>
+            <div class="mock-dot mock-dot-y"></div>
+            <div class="mock-dot mock-dot-g"></div>
+            <span class="mock-titlebar-label">plugai.app/knowledge/article/2847</span>
+          </div>
+          <div class="mock-content">
+            <div class="kb-header">
+              <span class="kb-badge kb-published">PUBLISHED</span>
+              <span class="kb-badge kb-confidential">CONFIDENTIAL</span>
+              <span class="kb-badge kb-gold">GOLD_STANDARD</span>
+            </div>
+            <div class="kb-title">Enterprise Security Architecture &mdash; Reference Guide</div>
+            <div class="kb-meta">
+              <span>Updated 2d ago by J. Martinez</span>
+              <span>v7 &middot; 12 revisions</span>
+              <span>4,218 words</span>
+            </div>
+            <div class="kb-body">
+              This reference guide establishes the canonical security architecture for all enterprise deployments. It covers network segmentation, identity federation (SAML 2.0 / OIDC), encryption at rest (AES-256) and in transit (TLS 1.3), and the zero-trust perimeter model adopted in Q3 2025...
+            </div>
+            <!-- Version history -->
+            <div class="kb-versions">
+              <div class="kb-version-title">Version History</div>
+              <div class="kb-version-row">
+                <div class="kb-version-dot kb-version-active"></div>
+                <span style="color:var(--paper);font-weight:600;">v7</span>
+                <span>Added zero-trust perimeter section</span>
+                <span style="margin-left:auto;color:rgba(244,241,236,.2);">2d ago</span>
+              </div>
+              <div class="kb-version-row">
+                <div class="kb-version-dot kb-version-old"></div>
+                <span>v6</span>
+                <span>Updated TLS requirements to 1.3</span>
+                <span style="margin-left:auto;color:rgba(244,241,236,.2);">1w ago</span>
+              </div>
+              <div class="kb-version-row">
+                <div class="kb-version-dot kb-version-old"></div>
+                <span>v5</span>
+                <span>GOLD_STANDARD certification approved</span>
+                <span style="margin-left:auto;color:rgba(244,241,236,.2);">3w ago</span>
+              </div>
+            </div>
+            <!-- Chunk stats -->
+            <div class="kb-chunks">
+              <div class="kb-chunk">
+                <div class="kb-chunk-val">24</div>
+                <div class="kb-chunk-lbl">Chunks</div>
+              </div>
+              <div class="kb-chunk">
+                <div class="kb-chunk-val">512</div>
+                <div class="kb-chunk-lbl">Avg Tokens</div>
+              </div>
+              <div class="kb-chunk">
+                <div class="kb-chunk-val">98%</div>
+                <div class="kb-chunk-lbl">Coverage</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 5 — ANALYTICS & OBSERVABILITY (dark bg)
+     ═══════════════════════════════════════════ -->
+<section class="sec-dark" id="analytics">
+  <div class="sec-inner">
+    <div class="feat-row rv">
+      <!-- TEXT -->
+      <div class="feat-text">
+        <p class="label label-dark rv rv-d1">05 &mdash; Analytics &amp; Observability</p>
+        <h2 class="stitle rv rv-d2" style="color:var(--paper);">
+          <span class="sec-gradient-sky">Measure everything.</span><br>Guess nothing.
+        </h2>
+        <p class="sdesc sdesc-dark rv rv-d3">Real-time dashboards for search volume, knowledge health scores, certification distribution, LLM tracing, cost tracking, and budget alerts. Full observability across every layer of the platform.</p>
+        <ul class="feat-list feat-list-dark rv rv-d4">
+          <li>Search volume analytics with trend detection and zero-result tracking</li>
+          <li>Knowledge health score aggregated across certification and freshness</li>
+          <li>Certification distribution breakdown by workspace and category</li>
+          <li>Full LLM tracing &mdash; every prompt, completion, and latency logged <span class="feat-badge fb-sky">TRACE</span></li>
+          <li>Per-model cost tracking with daily, weekly, and monthly roll-ups</li>
+          <li>Budget alerts with configurable thresholds and Slack/email notifications</li>
+        </ul>
+      </div>
+      <!-- MOCK -->
+      <div class="feat-mock rv rv-d3">
+        <div class="mock-card">
+          <div class="mock-titlebar">
+            <div class="mock-dot mock-dot-r"></div>
+            <div class="mock-dot mock-dot-y"></div>
+            <div class="mock-dot mock-dot-g"></div>
+            <span class="mock-titlebar-label">plugai.app/analytics</span>
+          </div>
+          <div class="mock-content">
+            <!-- KPIs -->
+            <div class="analytics-kpis">
+              <div class="analytics-kpi">
+                <div class="ak-label">Search Volume (7d)</div>
+                <div class="ak-value">14,829</div>
+                <div class="ak-change ak-up">&#9650; 12.4%</div>
+              </div>
+              <div class="analytics-kpi">
+                <div class="ak-label">Knowledge Health</div>
+                <div class="ak-value">94.2%</div>
+                <div class="ak-change ak-up">&#9650; 2.1%</div>
+              </div>
+              <div class="analytics-kpi">
+                <div class="ak-label">LLM Cost (MTD)</div>
+                <div class="ak-value">$847</div>
+                <div class="ak-change ak-down">&#9660; 8.3%</div>
+              </div>
+            </div>
+            <!-- Charts -->
+            <div class="analytics-charts">
+              <div class="analytics-chart">
+                <div class="ac-label">Daily Search Volume</div>
+                <div class="an-bars">
+                  <div class="an-bar an-bar-1" style="height:30px;"></div>
+                  <div class="an-bar an-bar-2" style="height:38px;"></div>
+                  <div class="an-bar an-bar-1" style="height:42px;"></div>
+                  <div class="an-bar an-bar-3" style="height:35px;"></div>
+                  <div class="an-bar an-bar-2" style="height:48px;"></div>
+                  <div class="an-bar an-bar-1" style="height:52px;"></div>
+                  <div class="an-bar an-bar-3" style="height:45px;"></div>
+                  <div class="an-bar an-bar-2" style="height:55px;"></div>
+                </div>
+              </div>
+              <div class="analytics-chart">
+                <div class="ac-label">Certification Dist.</div>
+                <div class="an-donut"></div>
+              </div>
+            </div>
+            <!-- Budget alert -->
+            <div class="analytics-alert">
+              <span class="alert-icon">&#9888;</span>
+              <span class="alert-text">GPT-4o budget at 78% &mdash; $847 of $1,100 monthly limit</span>
+              <span class="alert-badge">ALERT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 6 — CTA
+     ═══════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="cta-inner rv">
+    <p class="label label-dark rv rv-d1">Ready to Start?</p>
+    <h2 class="rv rv-d2">Stop searching.<br>Start <em style="font-style:italic;background:linear-gradient(135deg,var(--accent-glow),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">knowing.</em></h2>
+    <p class="rv rv-d3">See how PlugAI unifies search, chat, agents, knowledge, and analytics into a single platform your teams will actually use.</p>
+    <div class="hero-actions rv rv-d4">
+      <a href="contact.html" class="btn btn-primary">Request a Demo &rarr;</a>
+      <a href="pricing.html" class="btn btn-ghost-dark">View Pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-mark"><img src="plugai-logo-white.png" alt="PlugAI"></div>
+        <span style="color:#e8eaf0;">PlugAI</span>
+      </a>
+      <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+    </div>
+    <div class="footer-col"><h4>Product</h4><a href="features.html">Features</a><a href="pricing.html">Pricing</a><a href="roadmap.html">Roadmap</a></div>
+    <div class="footer-col"><h4>Enterprise</h4><a href="enterprise.html">Security</a><a href="enterprise.html">Compliance</a><a href="enterprise.html">RBAC</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="contact.html">Contact</a><a href="#">Blog</a><a href="#">Careers</a></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p></div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

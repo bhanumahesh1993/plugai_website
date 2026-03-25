@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlugAI — Contact & Request a Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* PAGE-SPECIFIC: Contact & Demo */
+
+/* Hero compact */
+.contact-hero{
+  min-height:auto;padding:10rem 2rem 5rem;
+}
+.contact-hero .hero-inner{max-width:700px;}
+
+/* Form area gradient */
+.form-area{
+  background:white;border-radius:var(--radius);padding:2.5rem;
+  box-shadow:var(--shadow-lg);border:1px solid var(--edge);
+  position:relative;overflow:hidden;
+}
+.form-area::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--accent),var(--gold),var(--teal),var(--accent));
+  background-size:300% 100%;
+  animation:formGrad 6s ease-in-out infinite;
+}
+@keyframes formGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+.form-area h3{
+  font-family:'DM Serif Display',serif;font-size:1.6rem;
+  margin-bottom:.35rem;
+}
+.form-area .form-subtitle{
+  font-size:.88rem;color:var(--slate);margin-bottom:2rem;
+}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+.form-select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6478' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;
+  padding-right:2.5rem;cursor:pointer;
+}
+
+.btn-submit{
+  width:100%;padding:1rem;border-radius:var(--radius-sm);
+  background:var(--accent);color:white;border:none;
+  font-size:.95rem;font-weight:700;cursor:pointer;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.btn-submit:hover{background:var(--accent-glow);transform:translateY(-1px);box-shadow:0 8px 24px rgba(196,93,62,.25);}
+.btn-submit::after{
+  content:'';position:absolute;top:50%;left:50%;
+  width:0;height:0;border-radius:50%;
+  background:rgba(255,255,255,.15);
+  transition:width .5s,height .5s,top .5s,left .5s;
+}
+
+/* Contact cards */
+.contact-card{
+  background:white;border-radius:var(--radius);padding:1.5rem;
+  border:1px solid var(--edge);box-shadow:var(--shadow);
+  transition:all .35s ease;position:relative;overflow:hidden;
+}
+.contact-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  transform:scaleX(0);transition:transform .35s ease;
+}
+.contact-card:hover{
+  box-shadow:var(--shadow-lg);transform:translateY(-3px);
+}
+.contact-card:hover::before{transform:scaleX(1);}
+.contact-card:nth-child(1)::before{background:linear-gradient(90deg,var(--accent),var(--gold));}
+.contact-card:nth-child(2)::before{background:linear-gradient(90deg,var(--teal),var(--teal-light));}
+.contact-card:nth-child(3)::before{background:linear-gradient(90deg,var(--gold),var(--accent));}
+
+.contact-card-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;margin-bottom:.85rem;
+}
+.contact-card h4{font-size:.92rem;font-weight:700;margin-bottom:.2rem;}
+.contact-card .contact-email{
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;
+  color:var(--accent);font-weight:500;display:block;margin-bottom:.35rem;
+}
+.contact-card .contact-desc{font-size:.78rem;color:var(--slate);line-height:1.5;}
+
+/* Quick facts */
+.quick-facts{
+  background:var(--navy);border-radius:var(--radius);padding:1.75rem;
+  margin-top:1.25rem;
+}
+.quick-facts h4{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--gold-light);
+  margin-bottom:1.25rem;
+}
+.fact-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.55rem 0;border-bottom:1px solid var(--edge-d);
+}
+.fact-item:last-child{border-bottom:none;}
+.fact-num{
+  font-family:'DM Serif Display',serif;font-size:1.35rem;
+  color:var(--paper);min-width:65px;
+}
+.fact-label{font-size:.78rem;color:rgba(244,241,236,.5);}
+
+/* Two-col layout */
+.contact-grid{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;align-items:start;
+}
+
+/* Right sidebar stack */
+.contact-sidebar{display:flex;flex-direction:column;gap:1.25rem;}
+
+/* Trust section */
+.trust-stats{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;
+  margin-bottom:3rem;
+}
+.trust-stat{text-align:center;}
+.trust-stat-num{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.5rem,2.5vw,2.2rem);color:var(--paper);
+}
+.trust-stat-num span{color:var(--accent-glow);}
+.trust-stat-label{font-size:.72rem;color:rgba(244,241,236,.4);margin-top:.25rem;}
+
+.compliance-badges{
+  display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;
+}
+.compliance-badge{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.6rem 1.2rem;border-radius:var(--radius-sm);
+  border:1px solid var(--edge-d);background:rgba(244,241,236,.04);
+  transition:all .3s;
+}
+.compliance-badge:hover{border-color:rgba(244,241,236,.12);background:rgba(244,241,236,.07);}
+.compliance-badge-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+}
+.compliance-badge-text{
+  font-size:.72rem;font-weight:600;color:rgba(244,241,236,.6);
+}
+
+/* CTA call section */
+.call-section{
+  background:var(--paper-warm);padding:5rem 2rem;text-align:center;
+}
+.call-inner{max-width:600px;margin:0 auto;}
+.call-inner h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:400;
+  margin-bottom:.75rem;line-height:1.15;
+}
+.call-inner p{font-size:1rem;color:var(--slate);line-height:1.7;margin-bottom:.5rem;}
+.call-phone{
+  font-family:'DM Serif Display',serif;font-size:1.4rem;
+  color:var(--accent);display:inline-block;margin-top:.5rem;
+}
+
+/* Staggered reveal for contact cards */
+.contact-sidebar .contact-card:nth-child(1){transition-delay:.1s;}
+.contact-sidebar .contact-card:nth-child(2){transition-delay:.2s;}
+.contact-sidebar .contact-card:nth-child(3){transition-delay:.3s;}
+
+/* Form field focus label color */
+.form-group:focus-within .form-label{color:var(--accent);}
+
+/* Responsive */
+@media(max-width:1024px){
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .trust-stats{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:768px){
+  .contact-hero{padding:8rem 1.5rem 3rem;}
+  .form-area{padding:1.75rem;}
+  .form-row{grid-template-columns:1fr;}
+  .trust-stats{grid-template-columns:repeat(2,1fr);}
+  .compliance-badges{gap:.75rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV (light) ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><div class="nav-mark"><img src="plugai-logo.png" alt="PlugAI"></div><span>PlugAI</span></a>
+    <div class="nav-menu" id="navMenu">
+      <a href="features.html">Features</a><a href="enterprise.html">Enterprise</a>
+      <a href="pricing.html">Pricing</a><a href="roadmap.html">Roadmap</a>
+      <a href="contact.html" class="nav-cta">Request Demo</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero hero-light contact-hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow rv">Contact Us</div>
+    <h1 class="rv" style="transition-delay:.1s;">Let's <em>Talk.</em></h1>
+    <p class="hero-sub rv" style="transition-delay:.2s;">Schedule a personalized demo or get in touch with our team.</p>
+  </div>
+</section>
+
+<!-- ═══ MAIN FORM + CONTACT SECTION ═══ -->
+<section class="sec-warm">
+  <div class="sec-inner">
+    <div class="contact-grid">
+
+      <!-- Left: Form -->
+      <div class="form-area rv">
+        <h3>Request a Demo</h3>
+        <p class="form-subtitle">Fill out the form and our team will reach out within 24 hours.</p>
+        <form id="demoForm" onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fullName">Full Name</label>
+              <input class="form-input" type="text" id="fullName" name="fullName" placeholder="Jane Smith" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="workEmail">Work Email</label>
+              <input class="form-input" type="email" id="workEmail" name="workEmail" placeholder="jane@company.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="company">Company Name</label>
+              <input class="form-input" type="text" id="company" name="company" placeholder="Acme Corp" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="jobTitle">Job Title</label>
+              <input class="form-input" type="text" id="jobTitle" name="jobTitle" placeholder="VP of Engineering">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="companySize">Company Size</label>
+              <select class="form-select" id="companySize" name="companySize" required>
+                <option value="" disabled selected>Select size</option>
+                <option value="1-50">1 - 50</option>
+                <option value="51-200">51 - 200</option>
+                <option value="201-1000">201 - 1,000</option>
+                <option value="1001-5000">1,001 - 5,000</option>
+                <option value="5000+">5,000+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="industry">Industry</label>
+              <select class="form-select" id="industry" name="industry" required>
+                <option value="" disabled selected>Select industry</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Financial Services">Financial Services</option>
+                <option value="Legal">Legal</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Technology">Technology</option>
+                <option value="Government">Government</option>
+                <option value="Defense">Defense</option>
+                <option value="Education">Education</option>
+                <option value="Consulting">Consulting</option>
+                <option value="Retail">Retail</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="interest">Interest Area</label>
+            <select class="form-select" id="interest" name="interest" required>
+              <option value="" disabled selected>What are you most interested in?</option>
+              <option value="Knowledge Management">Knowledge Management</option>
+              <option value="AI Chat (CwyoD)">AI Chat (CwyoD)</option>
+              <option value="Agent Builder">Agent Builder</option>
+              <option value="Enterprise Security">Enterprise Security</option>
+              <option value="Full Platform Demo">Full Platform Demo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your use case, team size, or any specific requirements..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Request Your Demo</button>
+        </form>
+      </div>
+
+      <!-- Right: Contact info + Quick facts -->
+      <div class="contact-sidebar">
+
+        <!-- Sales -->
+        <div class="contact-card rv">
+          <div class="contact-card-icon" style="background:rgba(196,93,62,.1);color:var(--accent);">&#9993;</div>
+          <h4>Sales</h4>
+          <a href="mailto:sales@plugai.app" class="contact-email">sales@plugai.app</a>
+          <p class="contact-desc">Enterprise inquiries and custom pricing</p>
+        </div>
+
+        <!-- Support -->
+        <div class="contact-card rv">
+          <div class="contact-card-icon" style="background:rgba(42,125,110,.1);color:var(--teal);">&#128736;</div>
+          <h4>Support</h4>
+          <a href="mailto:support@plugai.app" class="contact-email">support@plugai.app</a>
+          <p class="contact-desc">Technical questions and documentation</p>
+        </div>
+
+        <!-- Partnerships -->
+        <div class="contact-card rv">
+          <div class="contact-card-icon" style="background:rgba(201,168,76,.1);color:var(--gold);">&#129309;</div>
+          <h4>Partnerships</h4>
+          <a href="mailto:partners@plugai.app" class="contact-email">partners@plugai.app</a>
+          <p class="contact-desc">Integration and channel partnerships</p>
+        </div>
+
+        <!-- Quick Facts -->
+        <div class="quick-facts rv" style="transition-delay:.35s;">
+          <h4>Why PlugAI?</h4>
+          <div class="fact-item">
+            <span class="fact-num">6</span>
+            <span class="fact-label">LLM providers supported</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-num">10+</span>
+            <span class="fact-label">Enterprise connectors</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-num">25+</span>
+            <span class="fact-label">Industry solutions</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-num" style="font-size:1rem;line-height:1.3;">SOC2<br>HIPAA</span>
+            <span class="fact-label">SOC2 + HIPAA + FedRAMP ready</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST SECTION ═══ -->
+<section class="sec-dark">
+  <div class="sec-inner" style="text-align:center;">
+    <p class="label label-dark rv">Enterprise Ready</p>
+    <h2 class="stitle rv" style="transition-delay:.1s;color:var(--paper);">Trusted by enterprises worldwide</h2>
+    <p class="sdesc sdesc-dark rv" style="transition-delay:.2s;margin:0 auto 3.5rem;">PlugAI is built from the ground up with the security, compliance, and governance that enterprises demand.</p>
+
+    <!-- Stats -->
+    <div class="trust-stats rv" style="transition-delay:.25s;">
+      <div class="trust-stat">
+        <div class="trust-stat-num" data-count="108" data-suffix="+">0</div>
+        <div class="trust-stat-label">API Endpoints</div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-stat-num" data-count="6">0</div>
+        <div class="trust-stat-label">Granular Roles</div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-stat-num" data-count="35" data-suffix="+">0</div>
+        <div class="trust-stat-label">Permissions</div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-stat-num" data-count="4">0</div>
+        <div class="trust-stat-label">Classification Levels</div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-stat-num">AES-256</div>
+        <div class="trust-stat-label">Encryption Standard</div>
+      </div>
+    </div>
+
+    <!-- Compliance badges -->
+    <div class="compliance-badges rv" style="transition-delay:.35s;">
+      <div class="compliance-badge">
+        <div class="compliance-badge-icon" style="background:rgba(42,125,110,.15);color:var(--teal-light);">&#9989;</div>
+        <span class="compliance-badge-text">FedRAMP</span>
+      </div>
+      <div class="compliance-badge">
+        <div class="compliance-badge-icon" style="background:rgba(196,93,62,.15);color:var(--accent-glow);">&#9889;</div>
+        <span class="compliance-badge-text">HIPAA</span>
+      </div>
+      <div class="compliance-badge">
+        <div class="compliance-badge-icon" style="background:rgba(201,168,76,.15);color:var(--gold-light);">&#128274;</div>
+        <span class="compliance-badge-text">SOC2</span>
+      </div>
+      <div class="compliance-badge">
+        <div class="compliance-badge-icon" style="background:rgba(74,127,181,.15);color:var(--sky);">&#127758;</div>
+        <span class="compliance-badge-text">GDPR</span>
+      </div>
+      <div class="compliance-badge">
+        <div class="compliance-badge-icon" style="background:rgba(123,94,167,.15);color:var(--violet);">&#128272;</div>
+        <span class="compliance-badge-text">AES-256-GCM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CALL CTA ═══ -->
+<section class="call-section">
+  <div class="call-inner rv">
+    <p class="label">Prefer a conversation?</p>
+    <h2>Prefer to talk?<br><em style="font-style:italic;">Call us.</em></h2>
+    <p>Our team is available Monday through Friday, 9am to 6pm EST. We would love to hear from you.</p>
+    <a href="mailto:sales@plugai.app" class="call-phone">sales@plugai.app &rarr;</a>
+  </div>
+</section>
+
+<!-- ═══ CTA SECTION ═══ -->
+<section class="cta-section">
+  <div class="cta-inner rv">
+    <p class="label label-dark">Get Started</p>
+    <h2>Ready to transform how your<br>enterprise handles knowledge?</h2>
+    <p>Join the companies already using PlugAI to build smarter, safer, and faster AI-powered workflows.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="pricing.html" class="btn btn-primary">View Pricing</a>
+      <a href="features.html" class="btn btn-ghost-dark">Explore Features</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-mark"><img src="plugai-logo-white.png" alt="PlugAI"></div>
+        <span style="color:var(--paper);">PlugAI</span>
+      </a>
+      <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Enterprise</h4>
+      <a href="enterprise.html">Security</a>
+      <a href="enterprise.html">Compliance</a>
+      <a href="enterprise.html">RBAC</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="contact.html">Contact</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

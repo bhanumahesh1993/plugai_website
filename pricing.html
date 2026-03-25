@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlugAI — Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ═══ PAGE-SPECIFIC: Pricing ═══ */
+
+/* Hero stagger animations */
+.hero-anim-1{animation:fadeUp .8s ease-out both;}
+.hero-anim-2{animation:fadeUp .8s ease-out .12s both;}
+.hero-anim-3{animation:fadeUp .8s ease-out .24s both;}
+.hero-anim-4{animation:fadeUp .8s ease-out .36s both;}
+
+/* Floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 14s ease-in-out infinite;}
+.orb-a{width:400px;height:400px;top:-5%;left:-4%;background:rgba(196,93,62,.07);animation-delay:0s;}
+.orb-b{width:300px;height:300px;bottom:8%;right:-3%;background:rgba(42,125,110,.06);animation-delay:-5s;}
+.orb-c{width:220px;height:220px;top:40%;right:20%;background:rgba(201,168,76,.04);animation-delay:-9s;}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(18px,-12px) scale(1.04)}
+  66%{transform:translate(-12px,8px) scale(.96)}
+}
+
+/* Animated gradient border on featured card */
+.price-card.featured{position:relative;overflow:visible;}
+.price-card.featured::before{
+  content:'';position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+  background:linear-gradient(135deg,var(--accent),var(--gold),var(--teal),var(--violet),var(--accent));
+  background-size:400% 400%;
+  animation:gradBorder 6s ease-in-out infinite;
+}
+@keyframes gradBorder{
+  0%,100%{background-position:0% 50%}
+  25%{background-position:100% 0%}
+  50%{background-position:100% 100%}
+  75%{background-position:0% 100%}
+}
+
+/* Price card hover glow */
+.price-card{transition:all .35s ease;}
+.price-card:not(.featured):hover{
+  box-shadow:0 8px 40px rgba(10,14,23,.12),0 0 0 1px rgba(196,93,62,.08);
+}
+.price-card.featured:hover{
+  box-shadow:0 12px 48px rgba(26,39,68,.4);
+  transform:translateY(-5px);
+}
+
+/* Price card button styling */
+.price-btn{
+  display:block;width:100%;text-align:center;
+  padding:.75rem 1.5rem;border-radius:var(--radius-sm);
+  font-size:.82rem;font-weight:700;transition:all .25s;
+  margin-top:1.75rem;
+}
+.price-btn-primary{background:var(--accent);color:white;}
+.price-btn-primary:hover{background:var(--accent-glow);transform:translateY(-1px);}
+.price-btn-featured{background:var(--gold);color:var(--ink);}
+.price-btn-featured:hover{background:var(--gold-light);transform:translateY(-1px);}
+.price-btn-ghost{background:transparent;border:1px solid var(--edge);color:var(--ink);}
+.price-btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.price-btn-dark{background:transparent;border:1px solid var(--edge-d);color:var(--paper);}
+.price-btn-dark:hover{border-color:rgba(244,241,236,.25);background:rgba(244,241,236,.05);}
+
+/* Billing toggle */
+.billing-toggle{
+  display:inline-flex;align-items:center;gap:.75rem;
+  padding:.35rem;background:white;border-radius:100px;
+  box-shadow:var(--shadow);border:1px solid var(--edge);
+  margin-bottom:3rem;
+}
+.billing-opt{
+  padding:.45rem 1.2rem;border-radius:100px;font-size:.78rem;font-weight:600;
+  cursor:pointer;transition:all .25s;color:var(--slate);
+}
+.billing-opt.active{background:var(--accent);color:white;}
+.billing-save{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;
+  background:rgba(42,125,110,.1);color:var(--teal);
+  padding:.15rem .5rem;border-radius:100px;letter-spacing:.04em;
+}
+
+/* Comparison table dark overrides */
+.sec-dark .tbl{background:var(--surface);box-shadow:0 4px 24px rgba(0,0,0,.3);}
+.sec-dark .tbl thead{background:rgba(244,241,236,.06);}
+.sec-dark .tbl th{color:var(--paper);}
+.sec-dark .tbl td{color:rgba(244,241,236,.6);border-bottom-color:var(--edge-d);}
+.sec-dark .tbl td:first-child{color:rgba(244,241,236,.8);}
+.sec-dark .tbl tbody tr:hover{background:rgba(244,241,236,.03);}
+.sec-dark .tbl .cat-row td{background:rgba(244,241,236,.03);color:rgba(244,241,236,.35);}
+.sec-dark .chk-y{background:rgba(42,125,110,.15);color:var(--teal-light);}
+.sec-dark .chk-n{background:rgba(244,241,236,.03);color:rgba(244,241,236,.1);}
+.sec-dark .chk-s{background:rgba(196,93,62,.15);color:var(--accent-glow);}
+
+/* FAQ accordion */
+.faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;}
+.faq-item{
+  background:white;border-radius:var(--radius-sm);
+  box-shadow:var(--shadow);border:1px solid var(--edge);
+  overflow:hidden;transition:all .3s;
+}
+.faq-item:hover{box-shadow:var(--shadow-lg);}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 1.5rem;cursor:pointer;gap:1rem;
+  font-size:.92rem;font-weight:600;color:var(--ink);
+  transition:color .2s;
+}
+.faq-q:hover{color:var(--accent);}
+.faq-icon{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(196,93,62,.06);color:var(--accent);
+  font-size:.85rem;font-weight:400;transition:all .3s;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--accent);color:white;}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;
+}
+.faq-item.open .faq-a{max-height:400px;}
+.faq-a-inner{
+  padding:0 1.5rem 1.25rem;font-size:.88rem;line-height:1.7;color:var(--slate);
+}
+
+/* Dashboard mock in hero */
+.pricing-mock{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:white;border-radius:12px;padding:.6rem 1.2rem;
+  box-shadow:var(--shadow);border:1px solid var(--edge);
+  font-size:.72rem;color:var(--slate);margin-top:2rem;
+  animation:fadeUp .8s ease-out .5s both;
+}
+.pricing-mock-dot{width:8px;height:8px;border-radius:50%;background:var(--teal-light);animation:pulse 2s infinite;}
+.pricing-mock-bar{width:60px;height:6px;border-radius:3px;background:var(--edge);overflow:hidden;position:relative;}
+.pricing-mock-bar::after{
+  content:'';position:absolute;inset:0;width:75%;border-radius:3px;
+  background:linear-gradient(90deg,var(--teal),var(--teal-light));
+}
+.pricing-mock strong{color:var(--ink);}
+
+/* Stagger pricing cards */
+.price-stagger-1{animation:fadeUp .7s ease-out .1s both;}
+.price-stagger-2{animation:fadeUp .7s ease-out .2s both;}
+.price-stagger-3{animation:fadeUp .7s ease-out .3s both;}
+.price-stagger-4{animation:fadeUp .7s ease-out .4s both;}
+
+/* Table scroll wrapper for mobile */
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius);-webkit-overflow-scrolling:touch;}
+
+/* Responsive pricing grid fix */
+@media(max-width:1024px){
+  .pricing-grid{grid-template-columns:repeat(2,1fr)!important;}
+}
+@media(max-width:768px){
+  .pricing-grid{grid-template-columns:1fr!important;}
+  .tbl{font-size:.7rem;}
+  .tbl th,.tbl td{padding:.55rem .4rem;}
+  .tbl th:first-child,.tbl td:first-child{min-width:140px;padding-left:.8rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV (light) ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><div class="nav-mark"><img src="plugai-logo.png" alt="PlugAI"></div><span>PlugAI</span></a>
+    <div class="nav-menu" id="navMenu">
+      <a href="features.html">Features</a><a href="enterprise.html">Enterprise</a>
+      <a href="pricing.html" style="color:var(--accent);">Pricing</a><a href="roadmap.html">Roadmap</a>
+      <a href="contact.html" class="nav-cta">Request Demo</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero hero-light">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow hero-anim-1">Pricing</div>
+    <h1 class="hero-anim-2">Transparent Pricing.<br><em>No Surprises.</em></h1>
+    <p class="hero-sub hero-anim-3">Seat-based pricing that scales with your team. No per-query fees, no hidden costs, no metered API charges. Pay for seats, get unlimited knowledge.</p>
+    <div class="hero-actions hero-anim-4">
+      <a class="btn btn-primary" href="#plans">View Plans &#8595;</a>
+      <a class="btn btn-ghost" href="contact.html">Talk to Sales &#8594;</a>
+    </div>
+    <div class="pricing-mock">
+      <span class="pricing-mock-dot"></span>
+      <span>Current usage:</span>
+      <strong>42 seats</strong>
+      <div class="pricing-mock-bar"></div>
+      <span style="color:var(--teal);font-weight:600;">No overage fees</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING CARDS ═══ -->
+<section class="sec-warm" id="plans">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label rv" style="justify-content:center;">Choose Your Plan</div>
+    <h2 class="stitle rv">Start free. Scale with confidence.</h2>
+    <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Every plan includes unlimited queries, full-text + semantic search, and zero per-API-call charges.</p>
+
+    <!-- Billing toggle -->
+    <div class="billing-toggle rv" id="priceToggle">
+      <div class="billing-opt active" data-billing="monthly">Monthly</div>
+      <div class="billing-opt" data-billing="annual">Annual</div>
+      <span class="billing-save">SAVE 20%</span>
+    </div>
+
+    <div class="grid-4 pricing-grid" style="text-align:left;">
+
+      <!-- Starter -->
+      <div class="price-card rv price-stagger-1">
+        <span class="price-tier" style="color:var(--slate);">Starter</span>
+        <div class="price-amount">Free</div>
+        <div class="price-label">forever</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Up to 20 users</li>
+          <li>1,000 articles</li>
+          <li>5 connectors</li>
+          <li>1 workspace</li>
+          <li>Basic semantic search</li>
+          <li>Community support</li>
+        </ul>
+        <a href="contact.html" class="price-btn price-btn-ghost">Get Started Free</a>
+      </div>
+
+      <!-- Professional -->
+      <div class="price-card rv price-stagger-2">
+        <span class="price-tier" style="color:var(--teal);">Professional</span>
+        <div class="price-amount" data-monthly="$25" data-annual="$240">$25</div>
+        <div class="price-label" data-period>per user / month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited users &amp; articles</li>
+          <li>50 connectors</li>
+          <li>Graph RAG search</li>
+          <li>API access</li>
+          <li>CwyoD embeddable widget</li>
+          <li>Agent builder</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="contact.html" class="price-btn price-btn-primary">Start Professional</a>
+      </div>
+
+      <!-- Enterprise (Featured) -->
+      <div class="price-card featured rv price-stagger-3">
+        <div class="price-popular">Most Popular</div>
+        <span class="price-tier" style="color:var(--gold-light);">Enterprise</span>
+        <div class="price-amount" data-monthly="$55" data-annual="$528">$55</div>
+        <div class="price-label" data-period>per user / month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Everything in Professional</li>
+          <li>Unlimited connectors</li>
+          <li>Multiple workspaces</li>
+          <li>Full agent suite</li>
+          <li>SME certification workflow</li>
+          <li>Compliance tools</li>
+          <li>SSO (SAML / OIDC)</li>
+          <li>Dedicated CSM</li>
+        </ul>
+        <a href="contact.html" class="price-btn price-btn-featured">Start Enterprise</a>
+      </div>
+
+      <!-- Enterprise+ -->
+      <div class="price-card rv price-stagger-4">
+        <span class="price-tier" style="color:var(--accent-glow);">Enterprise+</span>
+        <div class="price-amount">Custom</div>
+        <div class="price-label">license key required</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Multi-org licensing</li>
+          <li>Private cloud deploy</li>
+          <li>Local / private LLMs</li>
+          <li>FedRAMP compliance</li>
+          <li>Custom SLAs</li>
+          <li>Encryption key management</li>
+          <li>Dedicated support team</li>
+        </ul>
+        <a href="contact.html" class="price-btn price-btn-ghost">Contact Sales</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURE COMPARISON TABLE ═══ -->
+<section class="sec-dark">
+  <div class="sec-inner">
+    <div style="text-align:center;">
+      <div class="label label-dark rv" style="justify-content:center;">Full Comparison</div>
+      <h2 class="stitle rv">Every feature, side by side.</h2>
+      <p class="sdesc sdesc-dark rv" style="margin-left:auto;margin-right:auto;">See exactly what you get at every tier. No asterisks, no gotchas.</p>
+    </div>
+
+    <div class="tbl-wrap rv">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Starter</th>
+            <th>Professional</th>
+            <th>Enterprise</th>
+            <th>Enterprise+</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Knowledge & Search -->
+          <tr class="cat-row"><td colspan="5">Knowledge &amp; Search</td></tr>
+          <tr><td>Articles</td><td>1,000</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+          <tr><td>Connectors</td><td>5</td><td>50</td><td>Unlimited</td><td>Unlimited</td></tr>
+          <tr><td>Workspaces</td><td>1</td><td>1</td><td>Multiple</td><td>Unlimited</td></tr>
+          <tr><td>Semantic search</td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Graph RAG</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>CwyoD embeddable widget</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Document reprocessing</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+
+          <!-- AI & Agents -->
+          <tr class="cat-row"><td colspan="5">AI &amp; Agents</td></tr>
+          <tr><td>AI chat / Q&amp;A</td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Multi-LLM provider support</td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Agent builder (visual canvas)</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Crew / multi-agent orchestration</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>SME certification workflow</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Local / private LLMs</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-s">&#9733;</span></td></tr>
+          <tr><td>API access</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+
+          <!-- Administration -->
+          <tr class="cat-row"><td colspan="5">Administration</td></tr>
+          <tr><td>Users</td><td>Up to 20</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+          <tr><td>Role-based access (RBAC)</td><td>Basic</td><td><span class="chk chk-y">&#10003;</span></td><td>Advanced</td><td>Custom</td></tr>
+          <tr><td>Multi-organization</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-s">&#9733;</span></td></tr>
+          <tr><td>Tracing &amp; cost analytics</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Cost alerts &amp; budgets</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Custom branding</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+
+          <!-- Security & Compliance -->
+          <tr class="cat-row"><td colspan="5">Security &amp; Compliance</td></tr>
+          <tr><td>SSO (SAML / OIDC)</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Compliance tools</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Audit logs</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Encryption key management</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-s">&#9733;</span></td></tr>
+          <tr><td>FedRAMP compliance</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-s">&#9733;</span></td></tr>
+          <tr><td>Private cloud deployment</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-s">&#9733;</span></td></tr>
+
+          <!-- Support -->
+          <tr class="cat-row"><td colspan="5">Support</td></tr>
+          <tr><td>Community support</td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Priority email support</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Dedicated CSM</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-y">&#10003;</span></td><td><span class="chk chk-y">&#10003;</span></td></tr>
+          <tr><td>Custom SLAs</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-s">&#9733;</span></td></tr>
+          <tr><td>Dedicated support team</td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-n">&#10007;</span></td><td><span class="chk chk-s">&#9733;</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;" class="rv">
+      <p style="font-size:.75rem;color:rgba(244,241,236,.3);"><span class="chk chk-y" style="display:inline-flex;width:18px;height:18px;font-size:.55rem;">&#10003;</span> Included &nbsp;&nbsp; <span class="chk chk-n" style="display:inline-flex;width:18px;height:18px;font-size:.55rem;">&#10007;</span> Not available &nbsp;&nbsp; <span class="chk chk-s" style="display:inline-flex;width:18px;height:18px;font-size:.55rem;">&#9733;</span> Exclusive to tier</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="sec" id="faq">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label rv" style="justify-content:center;">Frequently Asked Questions</div>
+    <h2 class="stitle rv">Common questions, straight answers.</h2>
+    <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Everything you need to know about PlugAI pricing and plans.</p>
+
+    <div class="faq-list rv">
+
+      <div class="faq-item">
+        <div class="faq-q">
+          How does seat-based pricing work?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">You pay a flat monthly fee per user (seat) in your organization. There are no per-query, per-API-call, or per-document fees. Whether a user makes 10 searches or 10,000, the cost stays the same. You only pay for active seats, and you can add or remove seats at any time from your billing dashboard.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          Can I switch plans at any time?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. You can upgrade or downgrade your plan at any time. When upgrading, you get immediate access to the new features and we prorate the charge for the remainder of your billing cycle. When downgrading, the change takes effect at the start of your next billing period, so you keep your current features until then.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          What's included in the free Starter tier?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The Starter plan is free forever for up to 20 users. It includes 1,000 articles, 5 connectors (Slack, Confluence, Google Drive, etc.), 1 workspace, basic semantic search, AI chat with multi-LLM support, and community support. It's a fully functional knowledge base -- not a trial -- so there's no time limit.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          Do you offer annual billing discounts?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Annual billing saves you 20% compared to monthly pricing. Professional drops to $240/user/year (equivalent to $20/user/month), and Enterprise drops to $528/user/year (equivalent to $44/user/month). Annual plans are billed upfront for the full year.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          What is Enterprise+ licensing?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Enterprise+ is our top-tier offering for organizations with advanced requirements: multi-org licensing, private cloud or on-premise deployment, local/private LLMs for air-gapped environments, FedRAMP compliance, custom SLAs, encryption key management, and a dedicated support team. Pricing is custom based on your deployment scope. Contact our sales team for a tailored quote.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          Is there a setup fee or implementation cost?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">No setup fees for Starter, Professional, or Enterprise plans. You can self-serve onboarding in minutes. For Enterprise+ deployments that require private cloud configuration, custom integrations, or dedicated training, there may be a one-time implementation fee -- your account team will outline this during the scoping process.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          What LLM providers are supported?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">All plans include access to 6 LLM providers: Anthropic (Claude Opus, Sonnet, Haiku), OpenAI (GPT-4o, GPT-4o Mini, o3 Mini), Google Gemini (2.5 Pro, 2.5 Flash), AWS Bedrock, Azure OpenAI, and local models (Llama 3, Mistral, Codestral). Enterprise+ adds support for fully private/air-gapped LLM deployments.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          Do you offer discounts for nonprofits or education?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. We offer special pricing for qualified nonprofits, educational institutions, and open-source projects. Contact our sales team with your organization details and we'll work out a plan that fits your budget.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+  <div class="cta-inner rv">
+    <h2>Ready to turn your knowledge<br>into your competitive edge?</h2>
+    <p>Start free with up to 20 users, or talk to our team about the right plan for your organization. No credit card required.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-primary" href="contact.html">Schedule a Demo &#8594;</a>
+      <a class="btn btn-ghost-dark" href="enterprise.html">Explore Enterprise</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-mark"><img src="plugai-logo-white.png" alt="PlugAI"></div>
+        <span style="color:var(--paper);">PlugAI</span>
+      </a>
+      <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Enterprise</h4>
+      <a href="enterprise.html">Security</a>
+      <a href="enterprise.html">Compliance</a>
+      <a href="enterprise.html">RBAC</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="contact.html">Contact</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+/* ═══ Pricing page extras ═══ */
+(function(){
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item = this.parentElement;
+      var wasOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(function(fi){fi.classList.remove('open');});
+      // Toggle clicked
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Billing toggle (monthly/annual)
+  var toggle = document.getElementById('priceToggle');
+  if(toggle){
+    var opts = toggle.querySelectorAll('.billing-opt');
+    opts.forEach(function(opt){
+      opt.addEventListener('click',function(){
+        opts.forEach(function(o){o.classList.remove('active');});
+        this.classList.add('active');
+        var isAnnual = this.getAttribute('data-billing')==='annual';
+        document.querySelectorAll('[data-monthly]').forEach(function(el){
+          el.textContent = isAnnual ? el.getAttribute('data-annual') : el.getAttribute('data-monthly');
+        });
+        document.querySelectorAll('[data-period]').forEach(function(el){
+          el.textContent = isAnnual ? 'per user / year' : 'per user / month';
+        });
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

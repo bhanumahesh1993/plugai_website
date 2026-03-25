@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlugAI — Roadmap &amp; Future Vision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ═══════════════════════════════════════
+   PAGE-SPECIFIC: Roadmap / Future Vision
+   ═══════════════════════════════════════ */
+
+/* Floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 14s ease-in-out infinite;}
+.orb-a{width:500px;height:500px;top:-10%;left:-8%;background:rgba(196,93,62,.12);animation-delay:0s;}
+.orb-b{width:380px;height:380px;bottom:8%;right:-5%;background:rgba(42,125,110,.09);animation-delay:-5s;}
+.orb-c{width:280px;height:280px;top:30%;right:12%;background:rgba(201,168,76,.07);animation-delay:-9s;}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(20px,-15px) scale(1.05)}
+  66%{transform:translate(-15px,10px) scale(.95)}
+}
+
+/* Hero grid background */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(244,241,236,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(244,241,236,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black,transparent);
+  animation:gridPulse 8s ease-in-out infinite;
+}
+@keyframes gridPulse{
+  0%,100%{opacity:1}
+  50%{opacity:.5}
+}
+
+/* Animated gradient text */
+.gradient-text{
+  background:linear-gradient(
+    90deg,
+    var(--accent-glow) 0%,
+    var(--gold-light) 20%,
+    var(--teal-light) 40%,
+    var(--accent-glow) 60%,
+    var(--gold-light) 80%,
+    var(--teal-light) 100%
+  );
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradientCycle 6s linear infinite;
+}
+@keyframes gradientCycle{
+  0%{background-position:0% 50%}
+  100%{background-position:300% 50%}
+}
+
+/* Hero entrance animations */
+.hero-anim-1{animation:fadeUp .8s ease-out both;}
+.hero-anim-2{animation:fadeUp .8s ease-out .12s both;}
+.hero-anim-3{animation:fadeUp .8s ease-out .24s both;}
+.hero-anim-4{animation:fadeUp .8s ease-out .4s both;}
+.hero-anim-5{animation:fadeUp .8s ease-out .55s both;}
+
+/* Foundation cards */
+.found-card{position:relative;overflow:hidden;}
+.found-card .found-icon{
+  width:52px;height:52px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1rem;
+}
+.found-badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;
+  padding:.2rem .5rem;border-radius:4px;letter-spacing:.06em;
+  background:rgba(42,125,110,.1);color:var(--teal);
+  margin-bottom:.75rem;
+}
+.found-badge::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--teal);animation:pulse 2s infinite;
+}
+
+/* Timeline enhancements */
+.tl-phase-ember .tl-dot{background:rgba(196,93,62,.2);}
+.tl-phase-ember .tl-dot::after{background:var(--accent);}
+.tl-phase-teal .tl-dot{background:rgba(42,125,110,.2);}
+.tl-phase-teal .tl-dot::after{background:var(--teal);}
+.tl-phase-violet .tl-dot{background:rgba(123,94,167,.2);}
+.tl-phase-violet .tl-dot::after{background:var(--violet);}
+.tl-phase-gold .tl-dot{background:rgba(201,168,76,.2);}
+.tl-phase-gold .tl-dot::after{background:var(--gold);}
+
+.tl-quarter{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem;
+}
+.tl-title{
+  font-family:'DM Serif Display',serif;font-size:1.5rem;
+  margin-bottom:.75rem;color:var(--paper);
+}
+.tl-items{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem;}
+.tl-item{
+  background:rgba(244,241,236,.04);border:1px solid var(--edge-d);
+  border-radius:10px;padding:.75rem 1rem;transition:all .3s;
+}
+.tl-item:hover{background:rgba(244,241,236,.07);border-color:rgba(244,241,236,.12);}
+.tl-item h4{font-size:.82rem;font-weight:700;color:var(--paper);margin-bottom:.25rem;}
+.tl-item p{font-size:.7rem;color:rgba(244,241,236,.45);line-height:1.4;}
+.tl-item .tl-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:600;
+  padding:.12rem .35rem;border-radius:3px;margin-top:.4rem;display:inline-block;
+}
+
+/* Dot pulse ring */
+.tl-dot{animation:dotPulse 3s ease-in-out infinite;}
+@keyframes dotPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(196,93,62,.3)}
+  50%{box-shadow:0 0 0 8px rgba(196,93,62,0)}
+}
+.tl-phase-teal .tl-dot{animation-name:dotPulseTeal;}
+@keyframes dotPulseTeal{
+  0%,100%{box-shadow:0 0 0 0 rgba(42,125,110,.3)}
+  50%{box-shadow:0 0 0 8px rgba(42,125,110,0)}
+}
+.tl-phase-violet .tl-dot{animation-name:dotPulseViolet;}
+@keyframes dotPulseViolet{
+  0%,100%{box-shadow:0 0 0 0 rgba(123,94,167,.3)}
+  50%{box-shadow:0 0 0 8px rgba(123,94,167,0)}
+}
+.tl-phase-gold .tl-dot{animation-name:dotPulseGold;}
+@keyframes dotPulseGold{
+  0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.3)}
+  50%{box-shadow:0 0 0 8px rgba(201,168,76,0)}
+}
+
+/* Strategic moats */
+.moat-card{position:relative;overflow:hidden;padding:2.5rem 2rem;}
+.moat-num{
+  font-family:'DM Serif Display',serif;font-size:4rem;
+  line-height:1;margin-bottom:.75rem;
+  opacity:.12;position:absolute;top:1rem;right:1.5rem;
+  background:linear-gradient(135deg,var(--accent),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.moat-card::after{
+  content:'';position:absolute;bottom:-40px;right:-40px;
+  width:140px;height:140px;border-radius:50%;filter:blur(50px);
+  pointer-events:none;opacity:0;transition:opacity .4s;
+}
+.moat-card:hover::after{opacity:.2;}
+.moat-card:nth-child(1)::after{background:var(--accent);}
+.moat-card:nth-child(2)::after{background:var(--teal);}
+.moat-card:nth-child(3)::after{background:var(--gold);}
+.moat-card:nth-child(4)::after{background:var(--violet);}
+.moat-card:nth-child(5)::after{background:var(--sky);}
+.moat-card:nth-child(6)::after{background:var(--rose);}
+
+/* Market stat cards */
+.market-card{
+  background:rgba(244,241,236,.04);border:1px solid var(--edge-d);
+  border-radius:var(--radius);padding:3rem 2rem;text-align:center;
+  position:relative;overflow:hidden;transition:all .3s;
+}
+.market-card:hover{background:rgba(244,241,236,.07);transform:translateY(-3px);}
+.market-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.market-card:nth-child(1)::before{background:linear-gradient(90deg,var(--accent),var(--gold));}
+.market-card:nth-child(2)::before{background:linear-gradient(90deg,var(--teal),var(--sky));}
+.market-card:nth-child(3)::before{background:linear-gradient(90deg,var(--violet),var(--rose));}
+.market-value{
+  font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);
+  color:var(--paper);line-height:1;margin-bottom:.5rem;
+}
+.market-value span{
+  background:linear-gradient(135deg,var(--accent-glow),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.market-label{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:rgba(244,241,236,.35);
+  margin-bottom:.5rem;
+}
+.market-desc{font-size:.85rem;color:rgba(244,241,236,.5);line-height:1.5;max-width:320px;margin:0 auto;}
+
+/* Shimmer line */
+.shimmer-line{
+  height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--teal),var(--gold),transparent);
+  background-size:200% 100%;
+  animation:shimmer 4s linear infinite;
+  margin:3rem 0;opacity:.3;
+}
+@keyframes shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+
+/* Mock enhancements for roadmap hero */
+.roadmap-mock .mock-frame{
+  max-width:960px;
+  animation:fadeUp 1s ease-out .6s both;
+}
+
+/* Responsive timeline items */
+@media(max-width:768px){
+  .tl-items{grid-template-columns:1fr;}
+  .tl-title{font-size:1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav-dark">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><div class="nav-mark"><img src="plugai-logo.png" alt="PlugAI"></div><span>PlugAI</span></a>
+    <div class="nav-menu" id="navMenu">
+      <a href="features.html">Features</a><a href="enterprise.html">Enterprise</a>
+      <a href="pricing.html">Pricing</a><a href="roadmap.html" style="color:var(--paper);">Roadmap</a>
+      <a href="contact.html" class="nav-cta">Request Demo</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero hero-dark" style="min-height:auto;padding-bottom:2rem;">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow hero-anim-1">&#9670; Strategic Roadmap 2026-2028</div>
+    <h1 class="hero-anim-2">The Road to<br><span class="gradient-text">Enterprise Intelligence</span></h1>
+    <p class="hero-sub hero-anim-3">Our multi-year technology roadmap: from best-in-class retrieval to autonomous enterprise cognition. Every milestone engineered to compound your competitive advantage.</p>
+    <div class="hero-actions hero-anim-4">
+      <a class="btn btn-primary" href="contact.html">Discuss the Roadmap &#8594;</a>
+      <a class="btn btn-ghost-dark" href="#timeline">Jump to Timeline</a>
+    </div>
+  </div>
+
+  <!-- Dashboard mock -->
+  <div class="roadmap-mock" style="width:100%;max-width:960px;margin:3rem auto 0;position:relative;z-index:2;">
+    <div class="mock-frame hero-anim-5">
+      <div class="mock-bar">
+        <div class="mock-dot mock-dot-r"></div>
+        <div class="mock-dot mock-dot-y"></div>
+        <div class="mock-dot mock-dot-g"></div>
+        <div class="mock-url">plugai.app/dashboard</div>
+      </div>
+      <div class="mock-body" style="min-height:320px;">
+        <div class="mock-sb">
+          <div class="mock-sb-logo">
+            <div class="mock-sb-logo-mark"></div>
+            <span>PlugAI</span>
+          </div>
+          <div class="mock-sb-sec">Main</div>
+          <div class="mock-sb-item active">&#128202; Dashboard</div>
+          <div class="mock-sb-item">&#128218; Knowledge</div>
+          <div class="mock-sb-item">&#129302; Agents</div>
+          <div class="mock-sb-item">&#128172; CwyoD Chat</div>
+          <div class="mock-sb-sec">Admin</div>
+          <div class="mock-sb-item">&#128274; RBAC</div>
+          <div class="mock-sb-item">&#128200; Tracing</div>
+          <div class="mock-sb-item">&#9881; Settings</div>
+        </div>
+        <div class="mock-main">
+          <div class="mock-hdr">
+            <h3>Enterprise Intelligence Hub</h3>
+            <div class="mock-live">Live</div>
+          </div>
+          <div class="mock-kpis">
+            <div class="mock-kpi">
+              <div class="mock-kpi-lbl">Knowledge Articles</div>
+              <div class="mock-kpi-val">12,847</div>
+            </div>
+            <div class="mock-kpi">
+              <div class="mock-kpi-lbl">Active Agents</div>
+              <div class="mock-kpi-val">38</div>
+            </div>
+            <div class="mock-kpi">
+              <div class="mock-kpi-lbl">Retrieval Accuracy</div>
+              <div class="mock-kpi-val" style="color:var(--teal-light);">94.2%</div>
+            </div>
+            <div class="mock-kpi">
+              <div class="mock-kpi-lbl">Queries Today</div>
+              <div class="mock-kpi-val">2,419</div>
+            </div>
+          </div>
+          <div class="mock-charts">
+            <div class="mock-chart">
+              <div class="mock-chart-lbl">Query Volume (7d)</div>
+              <div class="mock-bars-row">
+                <div class="mock-bar-col" style="height:45%"></div>
+                <div class="mock-bar-col" style="height:58%"></div>
+                <div class="mock-bar-col" style="height:42%"></div>
+                <div class="mock-bar-col" style="height:72%"></div>
+                <div class="mock-bar-col" style="height:65%"></div>
+                <div class="mock-bar-col" style="height:88%"></div>
+                <div class="mock-bar-col" style="height:78%"></div>
+                <div class="mock-bar-col" style="height:55%"></div>
+                <div class="mock-bar-col" style="height:92%"></div>
+                <div class="mock-bar-col" style="height:70%"></div>
+                <div class="mock-bar-col" style="height:82%"></div>
+                <div class="mock-bar-col" style="height:60%"></div>
+              </div>
+            </div>
+            <div class="mock-chart">
+              <div class="mock-chart-lbl">Source Coverage</div>
+              <div class="mock-donut"></div>
+            </div>
+          </div>
+          <div class="mock-activity">
+            <div class="mock-activity-lbl">Recent Activity</div>
+            <div class="mock-activity-row"><div class="mock-activity-dot" style="background:var(--teal-light);"></div>Knowledge base sync completed &mdash; 342 articles updated</div>
+            <div class="mock-activity-row"><div class="mock-activity-dot" style="background:var(--gold);"></div>Agent "Compliance Auditor" processed 18 documents</div>
+            <div class="mock-activity-row"><div class="mock-activity-dot" style="background:var(--accent);"></div>New connector: Jira Cloud integrated successfully</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TODAY'S FOUNDATION ═══ -->
+<section class="sec">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label rv">What's Already Built</div>
+    <h2 class="stitle rv">Today's Foundation</h2>
+    <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Six production-ready capabilities forming the bedrock of enterprise intelligence. Every feature shipping today, battle-tested at scale.</p>
+
+    <div class="grid-3" style="text-align:left;">
+      <div class="card card-accent found-card rv">
+        <div class="found-badge">&#9679; Production</div>
+        <div class="found-icon" style="background:rgba(196,93,62,.1);">&#128269;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.4rem;">Hybrid Search</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.55;">BM25 keyword + 1024-dim vector embeddings fused with Reciprocal Rank Fusion. Sub-second retrieval across millions of documents.</p>
+      </div>
+      <div class="card card-accent found-card rv anim-delay-1">
+        <div class="found-badge">&#9679; Production</div>
+        <div class="found-icon" style="background:rgba(42,125,110,.1);">&#128172;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.4rem;">CwyoD Chat</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.55;">Chat With Your Own Data. Inline citations, confidence scores, embeddable widget. Domain-whitelisted API keys for secure external deployment.</p>
+      </div>
+      <div class="card card-accent found-card rv anim-delay-2">
+        <div class="found-badge">&#9679; Production</div>
+        <div class="found-icon" style="background:rgba(201,168,76,.1);">&#129302;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.4rem;">Agentic Workflows</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.55;">LangGraph-powered visual canvas for building autonomous AI agent pipelines. 20+ built-in tools, conditional branching, and crew orchestration.</p>
+      </div>
+      <div class="card card-accent found-card rv">
+        <div class="found-badge">&#9679; Production</div>
+        <div class="found-icon" style="background:rgba(123,94,167,.1);">&#128274;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.4rem;">Enterprise RBAC</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.55;">Six-role hierarchy with four-tier document classification. Clearance-filtered results at query time. HIPAA and FedRAMP compliant architecture.</p>
+      </div>
+      <div class="card card-accent found-card rv anim-delay-1">
+        <div class="found-badge">&#9679; Production</div>
+        <div class="found-icon" style="background:rgba(74,127,181,.1);">&#128279;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.4rem;">Universal Connectors</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.55;">Google Drive, Confluence, Slack, SharePoint, Notion, Jira, and more. Real-time sync with change detection and incremental re-indexing.</p>
+      </div>
+      <div class="card card-accent found-card rv anim-delay-2">
+        <div class="found-badge">&#9679; Production</div>
+        <div class="found-icon" style="background:rgba(224,86,112,.1);">&#128200;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.4rem;">LLM Observability</h3>
+        <p style="font-size:.82rem;color:var(--slate);line-height:1.55;">Full trace logging for every LLM call. Token-level cost tracking, latency metrics, provider comparison, and anomaly alerting built in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOUR-PHASE TIMELINE ═══ -->
+<section class="sec-dark" id="timeline">
+  <div class="sec-inner">
+    <div class="label label-dark rv">Technology Roadmap</div>
+    <h2 class="stitle rv">Four Phases to Autonomous Intelligence</h2>
+    <p class="sdesc sdesc-dark rv">Each phase compounds on the last, methodically building toward a self-improving enterprise knowledge system.</p>
+
+    <div class="shimmer-line"></div>
+
+    <div class="timeline">
+      <!-- Phase 1 -->
+      <div class="tl-phase tl-phase-ember rv">
+        <div class="tl-dot"></div>
+        <div class="tl-quarter" style="color:var(--accent);">Phase 1 &mdash; Q2 2026</div>
+        <div class="tl-title">Retrieval Supremacy</div>
+        <p style="font-size:.88rem;color:rgba(244,241,236,.45);line-height:1.6;margin-bottom:.5rem;">Eliminate retrieval failures and establish the most accurate enterprise search engine on the market.</p>
+        <div class="tl-items">
+          <div class="tl-item">
+            <h4>Contextual Retrieval</h4>
+            <p>Anthropic-inspired chunk contextualization. Prepend document-level context to every chunk before embedding, reducing retrieval failures by 33-49%.</p>
+            <span class="tl-tag" style="background:rgba(196,93,62,.15);color:var(--accent);">33-49% fewer failures</span>
+          </div>
+          <div class="tl-item">
+            <h4>Cross-Encoder Reranking</h4>
+            <p>Two-stage retrieval: fast vector recall followed by precise cross-encoder scoring. Achieves 33-40% accuracy improvement over single-stage search.</p>
+            <span class="tl-tag" style="background:rgba(196,93,62,.15);color:var(--accent);">33-40% improvement</span>
+          </div>
+          <div class="tl-item">
+            <h4>Parent-Child Chunking</h4>
+            <p>Match on granular child chunks, return full parent context. Preserves semantic coherence while maintaining search precision at paragraph level.</p>
+            <span class="tl-tag" style="background:rgba(196,93,62,.15);color:var(--accent);">Semantic coherence</span>
+          </div>
+          <div class="tl-item">
+            <h4>ColPali Vision Retrieval</h4>
+            <p>Direct visual understanding of tables, charts, and diagrams from document images. No OCR pipeline required &mdash; pure vision-language retrieval.</p>
+            <span class="tl-tag" style="background:rgba(196,93,62,.15);color:var(--accent);">Tables &amp; charts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="tl-phase tl-phase-teal rv">
+        <div class="tl-dot"></div>
+        <div class="tl-quarter" style="color:var(--teal-light);">Phase 2 &mdash; Q3-Q4 2026</div>
+        <div class="tl-title">Autonomous Agent Intelligence</div>
+        <p style="font-size:.88rem;color:rgba(244,241,236,.45);line-height:1.6;margin-bottom:.5rem;">Transform agents from tools into trusted autonomous collaborators with enterprise-grade safety rails.</p>
+        <div class="tl-items">
+          <div class="tl-item">
+            <h4>Human-in-the-Loop Gates</h4>
+            <p>Configurable approval checkpoints in agent workflows. Escalation routing, timeout policies, and audit logging for every human decision point.</p>
+            <span class="tl-tag" style="background:rgba(42,125,110,.15);color:var(--teal-light);">Safety rails</span>
+          </div>
+          <div class="tl-item">
+            <h4>MCP Tool Protocol</h4>
+            <p>Anthropic's Model Context Protocol support. Expose and consume external tools with standardized schemas, enabling any-to-any tool integration.</p>
+            <span class="tl-tag" style="background:rgba(42,125,110,.15);color:var(--teal-light);">Anthropic MCP</span>
+          </div>
+          <div class="tl-item">
+            <h4>Agent-to-Agent Protocol (A2A)</h4>
+            <p>Federated agent communication across organizational boundaries. Agents discover, negotiate, and delegate tasks to specialized peer agents.</p>
+            <span class="tl-tag" style="background:rgba(42,125,110,.15);color:var(--teal-light);">Cross-org federation</span>
+          </div>
+          <div class="tl-item">
+            <h4>Agent Marketplace</h4>
+            <p>Curated library of pre-built agent templates for common enterprise workflows: compliance review, onboarding, incident response, and more.</p>
+            <span class="tl-tag" style="background:rgba(42,125,110,.15);color:var(--teal-light);">One-click deploy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="tl-phase tl-phase-violet rv">
+        <div class="tl-dot"></div>
+        <div class="tl-quarter" style="color:#b088d4;">Phase 3 &mdash; H1 2027</div>
+        <div class="tl-title">Enterprise Knowledge Graph</div>
+        <p style="font-size:.88rem;color:rgba(244,241,236,.45);line-height:1.6;margin-bottom:.5rem;">Layer a dynamic knowledge graph over your document base, unlocking relationship discovery and expert mapping.</p>
+        <div class="tl-items">
+          <div class="tl-item">
+            <h4>LazyGraphRAG</h4>
+            <p>Microsoft Research-inspired lazy graph construction. Builds knowledge graphs on-demand at query time &mdash; achieving 0.1% the cost of full GraphRAG upfront indexing.</p>
+            <span class="tl-tag" style="background:rgba(123,94,167,.15);color:#b088d4;">0.1% cost of GraphRAG</span>
+          </div>
+          <div class="tl-item">
+            <h4>Expert Discovery</h4>
+            <p>"Who knows about X?" Graph-based authorship and contribution analysis surfaces the right human expert for any topic across the organization.</p>
+            <span class="tl-tag" style="background:rgba(123,94,167,.15);color:#b088d4;">People + knowledge</span>
+          </div>
+          <div class="tl-item">
+            <h4>Predictive Knowledge Gaps</h4>
+            <p>Identify missing documentation before it becomes a problem. Analyze query patterns, failed retrievals, and topic coverage to surface blind spots.</p>
+            <span class="tl-tag" style="background:rgba(123,94,167,.15);color:#b088d4;">Proactive insights</span>
+          </div>
+          <div class="tl-item">
+            <h4>Real-Time Collaboration</h4>
+            <p>WebSocket-powered live editing, commenting, and co-authoring on knowledge articles. Presence indicators, cursors, and conflict-free resolution.</p>
+            <span class="tl-tag" style="background:rgba(123,94,167,.15);color:#b088d4;">WebSocket live</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="tl-phase tl-phase-gold rv">
+        <div class="tl-dot"></div>
+        <div class="tl-quarter" style="color:var(--gold-light);">Phase 4 &mdash; H2 2027-2028</div>
+        <div class="tl-title">Autonomous Enterprise Cognition</div>
+        <p style="font-size:.88rem;color:rgba(244,241,236,.45);line-height:1.6;margin-bottom:.5rem;">The endgame: a self-improving knowledge system that learns, heals, and adapts without human intervention.</p>
+        <div class="tl-items">
+          <div class="tl-item">
+            <h4>Self-Healing Knowledge Base</h4>
+            <p>Automated detection and remediation of stale, conflicting, or incomplete knowledge. Agents flag, merge, and retire content using policy-driven rules.</p>
+            <span class="tl-tag" style="background:rgba(201,168,76,.15);color:var(--gold-light);">Zero-maintenance</span>
+          </div>
+          <div class="tl-item">
+            <h4>AI Governance &amp; Red Teaming</h4>
+            <p>Built-in adversarial testing framework. Continuous probing for hallucinations, bias, data leakage, and prompt injection vulnerabilities.</p>
+            <span class="tl-tag" style="background:rgba(201,168,76,.15);color:var(--gold-light);">Adversarial testing</span>
+          </div>
+          <div class="tl-item">
+            <h4>Multimodal Intelligence</h4>
+            <p>Voice queries, image understanding, and video transcript search. Unified retrieval across text, audio, and visual knowledge artifacts.</p>
+            <span class="tl-tag" style="background:rgba(201,168,76,.15);color:var(--gold-light);">Voice, image, video</span>
+          </div>
+          <div class="tl-item">
+            <h4>Per-Org Fine-Tuned Models</h4>
+            <p>LoRA adapter training on your organization's data. Domain-specific language understanding that improves accuracy by 15-30% over base models.</p>
+            <span class="tl-tag" style="background:rgba(201,168,76,.15);color:var(--gold-light);">LoRA adapters</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shimmer-line"></div>
+  </div>
+</section>
+
+<!-- ═══ SIX STRATEGIC MOATS ═══ -->
+<section class="sec">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label rv">Competitive Advantage</div>
+    <h2 class="stitle rv">Six Strategic Moats</h2>
+    <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Defensible technology advantages that compound over time, making PlugAI harder to replicate with every deployment.</p>
+
+    <div class="grid-2" style="text-align:left;">
+      <div class="card moat-card rv">
+        <div class="moat-num">01</div>
+        <div class="icon-box" style="background:rgba(196,93,62,.1);margin-bottom:1rem;">&#127919;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.5rem;">Retrieval Accuracy</h3>
+        <p style="font-size:.85rem;color:var(--slate);line-height:1.6;">Five-layer retrieval pipeline: hybrid search, contextual chunking, cross-encoder reranking, parent-child expansion, and ColPali vision. Each layer compounds accuracy gains.</p>
+      </div>
+      <div class="card moat-card rv anim-delay-1">
+        <div class="moat-num">02</div>
+        <div class="icon-box" style="background:rgba(42,125,110,.1);margin-bottom:1rem;">&#129302;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.5rem;">Agentic Autonomy</h3>
+        <p style="font-size:.85rem;color:var(--slate);line-height:1.6;">Visual workflow builder, human-in-the-loop gates, MCP tool protocol, and A2A federation. Agents that act with enterprise-grade safety and cross-org collaboration.</p>
+      </div>
+      <div class="card moat-card rv">
+        <div class="moat-num">03</div>
+        <div class="icon-box" style="background:rgba(201,168,76,.1);margin-bottom:1rem;">&#128737;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.5rem;">Enterprise Trust</h3>
+        <p style="font-size:.85rem;color:var(--slate);line-height:1.6;">Six-role RBAC, four-tier classification, SME certification workflows, full audit trail, and AI red teaming. Built for regulated industries from day one.</p>
+      </div>
+      <div class="card moat-card rv anim-delay-1">
+        <div class="moat-num">04</div>
+        <div class="icon-box" style="background:rgba(123,94,167,.1);margin-bottom:1rem;">&#128260;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.5rem;">Provider Agnostic</h3>
+        <p style="font-size:.85rem;color:var(--slate);line-height:1.6;">Six LLM providers, swap models in one click. No vendor lock-in. Run on OpenAI, Anthropic, AWS Bedrock, Azure, Google, or fully air-gapped local models.</p>
+      </div>
+      <div class="card moat-card rv">
+        <div class="moat-num">05</div>
+        <div class="icon-box" style="background:rgba(74,127,181,.1);margin-bottom:1rem;">&#128328;&#65039;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.5rem;">Knowledge Graph</h3>
+        <p style="font-size:.85rem;color:var(--slate);line-height:1.6;">LazyGraphRAG at 0.1% the cost of traditional approaches. Expert discovery, relationship mapping, and predictive gap analysis across your entire knowledge topology.</p>
+      </div>
+      <div class="card moat-card rv anim-delay-1">
+        <div class="moat-num">06</div>
+        <div class="icon-box" style="background:rgba(224,86,112,.1);margin-bottom:1rem;">&#127981;</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.5rem;">Industry Depth</h3>
+        <p style="font-size:.85rem;color:var(--slate);line-height:1.6;">Per-org fine-tuned LoRA models, industry-specific agent templates, and compliance frameworks for healthcare, finance, defense, and legal verticals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MARKET OPPORTUNITY ═══ -->
+<section class="sec-dark">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="label label-dark rv">Market Opportunity</div>
+    <h2 class="stitle rv">Positioned at the Intersection of Three Massive Markets</h2>
+    <p class="sdesc sdesc-dark rv" style="margin-left:auto;margin-right:auto;">PlugAI sits at the convergence of knowledge management, enterprise AI, and compliance &mdash; a combined addressable market exceeding $200 billion by 2028.</p>
+
+    <div class="grid-3" style="margin-top:2rem;">
+      <div class="market-card rv">
+        <div class="market-label">Knowledge Management</div>
+        <div class="market-value"><span data-count="47" data-prefix="$" data-suffix="B">$0B</span></div>
+        <p class="market-desc">Global enterprise knowledge management market by 2028. Growing 18% CAGR as organizations digitize institutional memory.</p>
+      </div>
+      <div class="market-card rv anim-delay-1">
+        <div class="market-label">Enterprise AI</div>
+        <div class="market-value"><span data-count="98" data-prefix="$" data-suffix="B">$0B</span></div>
+        <p class="market-desc">Enterprise artificial intelligence market by 2028. RAG and agentic AI are the fastest-growing segments at 35%+ CAGR.</p>
+      </div>
+      <div class="market-card rv anim-delay-2">
+        <div class="market-label">GRC &amp; Compliance</div>
+        <div class="market-value"><span data-count="62" data-prefix="$" data-suffix="B">$0B</span></div>
+        <p class="market-desc">Governance, risk, and compliance market by 2028. AI governance requirements are creating entirely new budget categories.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+  <div class="cta-inner rv">
+    <h2>Shape the future of<br>enterprise intelligence with us.</h2>
+    <p>Join the organizations already building on PlugAI. Early partners gain direct influence over our roadmap and priority access to every new capability.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-primary" href="contact.html">Become an Early Partner &#8594;</a>
+      <a class="btn btn-ghost-dark" href="pricing.html">View Pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-mark"><img src="plugai-logo-white.png" alt="PlugAI"></div>
+        <span style="color:var(--paper);">PlugAI</span>
+      </a>
+      <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Enterprise</h4>
+      <a href="enterprise.html">Security</a>
+      <a href="enterprise.html">Compliance</a>
+      <a href="enterprise.html">RBAC</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="contact.html">Contact</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlugAI — Enterprise Security &amp; Compliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ═══ ENTERPRISE PAGE-SPECIFIC STYLES ═══ */
+
+/* Hero gradient text */
+.ent-hero-gradient{
+  background:linear-gradient(135deg,var(--accent-glow) 0%,var(--gold-light) 30%,var(--teal-light) 60%,var(--accent-glow) 100%);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:entGrad 6s ease-in-out infinite;
+}
+@keyframes entGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Hero radial pulse rings */
+.hero-rings{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.hero-ring{
+  position:absolute;border-radius:50%;border:1px solid rgba(244,241,236,.04);
+  top:50%;left:50%;transform:translate(-50%,-50%) scale(0);
+  animation:ringPulse 6s ease-out infinite;
+}
+.hero-ring:nth-child(1){width:400px;height:400px;animation-delay:0s;}
+.hero-ring:nth-child(2){width:700px;height:700px;animation-delay:1.5s;}
+.hero-ring:nth-child(3){width:1000px;height:1000px;animation-delay:3s;}
+@keyframes ringPulse{
+  0%{transform:translate(-50%,-50%) scale(0);opacity:.6}
+  100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}
+}
+
+/* Floating security orbs */
+.sec-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:secOrbFloat 16s ease-in-out infinite;}
+.sec-orb-1{width:500px;height:500px;top:-10%;left:10%;background:rgba(196,93,62,.08);animation-delay:0s;}
+.sec-orb-2{width:400px;height:400px;bottom:5%;right:5%;background:rgba(42,125,110,.06);animation-delay:-6s;}
+.sec-orb-3{width:300px;height:300px;top:40%;right:20%;background:rgba(123,94,167,.05);animation-delay:-11s;}
+@keyframes secOrbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(20px,-15px) scale(1.06)}
+  66%{transform:translate(-15px,10px) scale(.94)}
+}
+
+/* Shield icon animation */
+.shield-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:80px;height:80px;border-radius:20px;margin-bottom:2rem;
+  background:linear-gradient(135deg,rgba(196,93,62,.15),rgba(201,168,76,.1));
+  border:1px solid rgba(244,241,236,.08);
+  font-size:2.2rem;
+  animation:shieldGlow 3s ease-in-out infinite;
+}
+@keyframes shieldGlow{
+  0%,100%{box-shadow:0 0 30px rgba(196,93,62,.1),0 0 60px rgba(196,93,62,.05)}
+  50%{box-shadow:0 0 40px rgba(196,93,62,.2),0 0 80px rgba(196,93,62,.1)}
+}
+
+/* Stats row */
+.ent-stats{display:flex;justify-content:center;gap:3rem;margin-top:3rem;flex-wrap:wrap;}
+.ent-stat{text-align:center;}
+.ent-stat-num{
+  font-family:'DM Serif Display',serif;font-size:2.4rem;
+  background:linear-gradient(135deg,var(--accent-glow),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ent-stat-label{font-size:.72rem;color:rgba(244,241,236,.4);margin-top:.2rem;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;}
+
+/* Mock UI panel base */
+.mock-panel{
+  background:var(--ink);border:1px solid rgba(244,241,236,.08);
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 4px 60px rgba(0,0,0,.3),0 0 80px rgba(196,93,62,.03);
+}
+.mock-panel-bar{
+  display:flex;align-items:center;gap:.45rem;
+  padding:.55rem 1rem;border-bottom:1px solid rgba(244,241,236,.06);
+  background:rgba(244,241,236,.02);
+}
+.mock-panel-title{
+  flex:1;text-align:center;font-family:'JetBrains Mono',monospace;
+  font-size:.55rem;color:rgba(244,241,236,.25);letter-spacing:.05em;
+}
+.mock-panel-body{padding:1.5rem;}
+
+/* RBAC role cards */
+.rbac-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.rbac-col-title{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,236,.3);
+  margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem;
+}
+.rbac-col-title::before{
+  content:'';width:16px;height:1px;background:rgba(244,241,236,.15);
+}
+.rbac-role{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.6rem .8rem;border-radius:10px;
+  background:rgba(244,241,236,.03);border:1px solid rgba(244,241,236,.06);
+  margin-bottom:.45rem;
+  transition:all .3s;animation:roleSlide .6s ease-out both;
+}
+.rbac-role:hover{background:rgba(244,241,236,.06);border-color:rgba(244,241,236,.1);transform:translateX(4px);}
+.rbac-role-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;position:relative;}
+.rbac-role-dot::after{
+  content:'';position:absolute;inset:-3px;border-radius:50%;
+  border:1px solid;opacity:.3;
+}
+.rbac-role-name{font-size:.75rem;font-weight:600;color:var(--paper);}
+.rbac-role-perms{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;
+  color:rgba(244,241,236,.35);margin-left:auto;
+}
+@keyframes roleSlide{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.rbac-role:nth-child(2){animation-delay:.08s;}
+.rbac-role:nth-child(3){animation-delay:.16s;}
+.rbac-role:nth-child(4){animation-delay:.24s;}
+.rbac-role:nth-child(5){animation-delay:.32s;}
+.rbac-role:nth-child(6){animation-delay:.4s;}
+
+/* RBAC stats bar */
+.rbac-stats{
+  display:flex;gap:1rem;margin-top:1.25rem;padding-top:1rem;
+  border-top:1px solid rgba(244,241,236,.06);
+}
+.rbac-stat{
+  flex:1;text-align:center;padding:.6rem;border-radius:8px;
+  background:rgba(244,241,236,.02);
+}
+.rbac-stat-num{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--paper);}
+.rbac-stat-lbl{font-family:'JetBrains Mono',monospace;font-size:.45rem;color:rgba(244,241,236,.3);letter-spacing:.06em;margin-top:.1rem;}
+
+/* Classification bars */
+.class-bar{
+  display:flex;align-items:center;gap:1rem;
+  padding:.85rem 1.2rem;border-radius:12px;
+  background:rgba(244,241,236,.03);border:1px solid rgba(244,241,236,.06);
+  margin-bottom:.6rem;position:relative;overflow:hidden;
+  transition:all .4s;
+}
+.class-bar:hover{background:rgba(244,241,236,.06);transform:translateX(6px);}
+.class-bar::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+}
+.class-bar-public::before{background:var(--teal-light);}
+.class-bar-internal::before{background:var(--sky);}
+.class-bar-confidential::before{background:var(--gold);}
+.class-bar-restricted::before{background:var(--accent);}
+.class-rank{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;
+  width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.class-lock{font-size:1rem;flex-shrink:0;width:28px;text-align:center;}
+.class-name{font-size:.82rem;font-weight:700;color:var(--paper);flex:1;}
+.class-desc{font-size:.6rem;color:rgba(244,241,236,.35);flex:2;}
+.class-badge{
+  font-family:'JetBrains Mono',monospace;font-size:.48rem;font-weight:600;
+  padding:.2rem .5rem;border-radius:4px;letter-spacing:.04em;flex-shrink:0;
+}
+
+/* Clearance strength meter */
+.class-strength{
+  display:flex;gap:2px;flex-shrink:0;
+}
+.class-strength-bar{width:12px;height:4px;border-radius:2px;background:rgba(244,241,236,.08);}
+.class-strength-bar.filled{background:currentColor;}
+
+/* Audit log mock */
+.audit-entry{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.65rem .9rem;border-radius:8px;
+  margin-bottom:.35rem;font-size:.68rem;
+  background:rgba(244,241,236,.02);border:1px solid rgba(244,241,236,.04);
+  transition:all .3s;animation:auditFade .5s ease-out both;
+}
+.audit-entry:hover{background:rgba(244,241,236,.05);}
+.audit-entry:nth-child(2){animation-delay:.12s;}
+.audit-entry:nth-child(3){animation-delay:.24s;}
+.audit-entry:nth-child(4){animation-delay:.36s;}
+.audit-entry:nth-child(5){animation-delay:.48s;}
+@keyframes auditFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.audit-status{
+  width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;font-weight:700;flex-shrink:0;
+}
+.audit-allow{background:rgba(42,125,110,.15);color:var(--teal-light);}
+.audit-deny{background:rgba(196,93,62,.15);color:var(--accent-glow);}
+.audit-user{font-weight:600;color:var(--paper);white-space:nowrap;}
+.audit-action{color:rgba(244,241,236,.45);flex:1;}
+.audit-verdict{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:600;
+  padding:.15rem .4rem;border-radius:3px;letter-spacing:.04em;flex-shrink:0;
+}
+.audit-verdict-allow{background:rgba(42,125,110,.1);color:var(--teal-light);}
+.audit-verdict-deny{background:rgba(196,93,62,.1);color:var(--accent-glow);}
+.audit-ip{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;
+  color:rgba(244,241,236,.2);flex-shrink:0;
+}
+.audit-time{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;
+  color:rgba(244,241,236,.2);flex-shrink:0;
+}
+
+/* Audit features strip */
+.audit-features{
+  display:flex;gap:.6rem;margin-top:1rem;padding-top:.8rem;
+  border-top:1px solid rgba(244,241,236,.06);flex-wrap:wrap;
+}
+.audit-feature{
+  display:flex;align-items:center;gap:.3rem;
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;
+  color:rgba(244,241,236,.35);padding:.25rem .5rem;
+  border-radius:4px;background:rgba(244,241,236,.02);
+}
+.audit-feature::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal-light);flex-shrink:0;}
+
+/* Compliance cards */
+.comp-card{
+  background:rgba(244,241,236,.04);border:1px solid rgba(244,241,236,.08);
+  border-radius:14px;padding:1.5rem;text-align:center;
+  position:relative;overflow:hidden;transition:all .4s;
+}
+.comp-card:hover{
+  background:rgba(244,241,236,.07);border-color:rgba(244,241,236,.12);
+  transform:translateY(-4px);
+}
+.comp-card::after{
+  content:'';position:absolute;bottom:-20px;right:-20px;
+  width:80px;height:80px;border-radius:50%;filter:blur(30px);
+  pointer-events:none;opacity:.15;
+}
+.comp-icon{
+  width:56px;height:56px;border-radius:14px;margin:0 auto .8rem;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  position:relative;
+}
+.comp-icon::after{
+  content:'';position:absolute;inset:-2px;border-radius:16px;
+  border:1px solid;opacity:.15;
+}
+.comp-card h4{font-size:.9rem;font-weight:700;color:var(--paper);margin-bottom:.3rem;}
+.comp-card p{font-size:.7rem;color:rgba(244,241,236,.4);line-height:1.5;}
+.comp-badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:600;
+  padding:.2rem .5rem;border-radius:4px;margin-top:.6rem;
+  letter-spacing:.04em;
+}
+
+/* Certification ladder */
+.cert-ladder{
+  display:flex;align-items:stretch;gap:0;position:relative;
+}
+.cert-step{
+  flex:1;text-align:center;padding:1.5rem 1rem;position:relative;
+  background:rgba(244,241,236,.02);
+  border:1px solid rgba(244,241,236,.06);
+  transition:all .4s;
+}
+.cert-step:first-child{border-radius:12px 0 0 12px;}
+.cert-step:last-child{border-radius:0 12px 12px 0;}
+.cert-step:hover{background:rgba(244,241,236,.05);transform:translateY(-3px);}
+.cert-step-num{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:600;
+  letter-spacing:.08em;margin-bottom:.6rem;display:block;
+}
+.cert-step-icon{
+  width:48px;height:48px;border-radius:12px;margin:0 auto .6rem;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  position:relative;
+}
+.cert-step-icon::after{
+  content:'';position:absolute;inset:-2px;border-radius:14px;
+  border:1px solid;opacity:.2;animation:certPulse 3s ease-in-out infinite;
+}
+@keyframes certPulse{0%,100%{opacity:.1;transform:scale(1)}50%{opacity:.3;transform:scale(1.05)}}
+.cert-step h4{font-size:.72rem;font-weight:700;color:var(--paper);margin-bottom:.3rem;line-height:1.3;}
+.cert-step p{font-size:.6rem;color:rgba(244,241,236,.35);line-height:1.4;}
+
+/* Arrows between steps */
+.cert-arrow{
+  display:flex;align-items:center;justify-content:center;
+  width:32px;flex-shrink:0;font-size:.8rem;
+  color:rgba(244,241,236,.15);
+  animation:arrowPulse 2s ease-in-out infinite;
+}
+@keyframes arrowPulse{0%,100%{opacity:.3}50%{opacity:.8}}
+
+/* Progress bar under certification */
+.cert-progress{
+  height:4px;border-radius:2px;margin-top:1.5rem;
+  background:rgba(244,241,236,.04);overflow:hidden;position:relative;
+}
+.cert-progress-fill{
+  position:absolute;top:0;left:0;bottom:0;border-radius:2px;
+  background:linear-gradient(90deg,var(--slate),var(--sky),var(--gold),var(--teal-light));
+  background-size:200% 100%;
+  animation:certProgGrad 4s ease-in-out infinite;
+  width:75%;
+}
+@keyframes certProgGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Shimmer animation for mock panels */
+.shimmer{position:relative;overflow:hidden;}
+.shimmer::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(244,241,236,.03),transparent);
+  animation:shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer{0%{left:-100%}50%,100%{left:200%}}
+
+/* Glow border animation */
+.glow-border{position:relative;}
+.glow-border::before{
+  content:'';position:absolute;inset:-1px;border-radius:17px;
+  background:linear-gradient(135deg,rgba(196,93,62,.2),rgba(42,125,110,.15),rgba(201,168,76,.15),rgba(123,94,167,.15));
+  background-size:300% 300%;
+  animation:glowShift 8s ease-in-out infinite;
+  z-index:-1;
+}
+@keyframes glowShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Section divider gradient */
+.sec-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,241,236,.08),transparent);
+  margin:0;
+}
+
+/* CTA shield float */
+.cta-shield-float{
+  position:absolute;pointer-events:none;opacity:.06;
+  font-size:12rem;top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:ctaFloat 8s ease-in-out infinite;
+}
+@keyframes ctaFloat{0%,100%{transform:translate(-50%,-50%) rotate(0deg)}50%{transform:translate(-50%,-50%) rotate(5deg) scale(1.05)}}
+
+/* Responsive overrides */
+@media(max-width:1024px){
+  .rbac-grid{grid-template-columns:1fr;}
+  .cert-ladder{flex-direction:column;gap:.5rem;}
+  .cert-step{border-radius:12px!important;}
+  .cert-arrow{transform:rotate(90deg);width:auto;height:24px;}
+}
+@media(max-width:768px){
+  .ent-stats{gap:1.5rem;}
+  .ent-stat-num{font-size:1.8rem;}
+  .audit-entry{flex-wrap:wrap;gap:.4rem;}
+  .audit-ip,.audit-time{display:none;}
+  .class-desc{display:none;}
+  .comp-grid-ent{grid-template-columns:1fr 1fr!important;}
+}
+@media(max-width:480px){
+  .comp-grid-ent{grid-template-columns:1fr!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV (DARK) ═══ -->
+<nav class="nav-dark">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><div class="nav-mark"><img src="plugai-logo.png" alt="PlugAI"></div><span>PlugAI</span></a>
+    <div class="nav-menu" id="navMenu">
+      <a href="features.html">Features</a><a href="enterprise.html" style="color:var(--paper);">Enterprise</a>
+      <a href="pricing.html">Pricing</a><a href="roadmap.html">Roadmap</a>
+      <a href="contact.html" class="nav-cta">Request Demo</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ SECTION 1: HERO ═══ -->
+<section class="hero hero-dark" style="min-height:100vh;">
+  <!-- Animated rings -->
+  <div class="hero-rings">
+    <div class="hero-ring"></div>
+    <div class="hero-ring"></div>
+    <div class="hero-ring"></div>
+  </div>
+  <!-- Floating orbs -->
+  <div class="sec-orb sec-orb-1"></div>
+  <div class="sec-orb sec-orb-2"></div>
+  <div class="sec-orb sec-orb-3"></div>
+
+  <div class="hero-inner">
+    <div class="shield-icon" style="animation-delay:0s;">&#128737;</div>
+    <div class="hero-eyebrow" style="animation:fadeUp .8s ease-out both;">Enterprise Security</div>
+    <h1 style="animation:fadeUp .8s ease-out .1s both;">Enterprise-Grade Trust.<br><em class="ent-hero-gradient">Zero Compromise.</em></h1>
+    <p class="hero-sub" style="animation:fadeUp .8s ease-out .2s both;">Built for regulated industries. Every action audited, every answer certified, every byte encrypted. The trust infrastructure your CISO demands.</p>
+    <div class="hero-actions" style="animation:fadeUp .8s ease-out .35s both;">
+      <a class="btn btn-primary" href="contact.html">Schedule Security Review &#8594;</a>
+      <a class="btn btn-ghost-dark" href="#rbac">Explore Architecture</a>
+    </div>
+
+    <div class="ent-stats" style="animation:fadeUp .8s ease-out .5s both;">
+      <div class="ent-stat">
+        <div class="ent-stat-num" data-count="6" data-suffix="">6</div>
+        <div class="ent-stat-label">RBAC Roles</div>
+      </div>
+      <div class="ent-stat">
+        <div class="ent-stat-num" data-count="4" data-suffix="">4</div>
+        <div class="ent-stat-label">Clearance Levels</div>
+      </div>
+      <div class="ent-stat">
+        <div class="ent-stat-num" data-count="35" data-suffix="+">35+</div>
+        <div class="ent-stat-label">Permissions</div>
+      </div>
+      <div class="ent-stat">
+        <div class="ent-stat-num" data-count="365" data-suffix="+">365+</div>
+        <div class="ent-stat-label">Day Retention</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 2: RBAC ═══ -->
+<section class="sec" id="rbac">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="label rv">Role-Based Access Control</div>
+      <h2 class="stitle rv">Six roles. Two scopes.<br>Absolute workspace isolation.</h2>
+      <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Every user has a role at every scope. Permissions cascade from org to workspace. No lateral movement, no privilege escalation, no exceptions.</p>
+    </div>
+
+    <div class="rv" style="max-width:800px;margin:0 auto;">
+      <div class="mock-panel glow-border shimmer">
+        <div class="mock-panel-bar">
+          <div class="mock-dot mock-dot-r"></div>
+          <div class="mock-dot mock-dot-y"></div>
+          <div class="mock-dot mock-dot-g"></div>
+          <div class="mock-panel-title">SETTINGS &gt; ACCESS CONTROL &gt; ROLE HIERARCHY</div>
+        </div>
+        <div class="mock-panel-body">
+          <div class="rbac-grid">
+            <!-- Org-Level -->
+            <div>
+              <div class="rbac-col-title">Org-Level Roles</div>
+              <div class="rbac-role">
+                <div class="rbac-role-dot" style="background:#c45d3e;"><div class="rbac-role-dot" style="background:#c45d3e;"></div></div>
+                <div class="rbac-role-name" style="color:#e8734f;">OWNER</div>
+                <div class="rbac-role-perms">ALL PERMISSIONS</div>
+              </div>
+              <div class="rbac-role">
+                <div class="rbac-role-dot" style="background:#2a7d6e;"></div>
+                <div class="rbac-role-name" style="color:#3ba692;">ADMIN</div>
+                <div class="rbac-role-perms">MANAGE ORG + USERS</div>
+              </div>
+            </div>
+            <!-- Workspace-Level -->
+            <div>
+              <div class="rbac-col-title">Workspace-Level Roles</div>
+              <div class="rbac-role">
+                <div class="rbac-role-dot" style="background:#7b5ea7;"></div>
+                <div class="rbac-role-name" style="color:#a384d0;">MANAGER</div>
+                <div class="rbac-role-perms">FULL WORKSPACE</div>
+              </div>
+              <div class="rbac-role">
+                <div class="rbac-role-dot" style="background:#c9a84c;"></div>
+                <div class="rbac-role-name" style="color:#e0c56a;">SME</div>
+                <div class="rbac-role-perms">CERTIFY + EDIT</div>
+              </div>
+              <div class="rbac-role">
+                <div class="rbac-role-dot" style="background:#4a7fb5;"></div>
+                <div class="rbac-role-name" style="color:#6ba3d9;">CONTRIBUTOR</div>
+                <div class="rbac-role-perms">CREATE + EDIT</div>
+              </div>
+              <div class="rbac-role">
+                <div class="rbac-role-dot" style="background:#8a8d94;"></div>
+                <div class="rbac-role-name" style="color:#a8abb2;">VIEWER</div>
+                <div class="rbac-role-perms">READ ONLY</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rbac-stats">
+            <div class="rbac-stat">
+              <div class="rbac-stat-num" style="color:var(--accent-glow);">6</div>
+              <div class="rbac-stat-lbl">ROLES</div>
+            </div>
+            <div class="rbac-stat">
+              <div class="rbac-stat-num" style="color:var(--teal-light);">2</div>
+              <div class="rbac-stat-lbl">SCOPES</div>
+            </div>
+            <div class="rbac-stat">
+              <div class="rbac-stat-num" style="color:var(--gold-light);">35+</div>
+              <div class="rbac-stat-lbl">PERMISSIONS</div>
+            </div>
+            <div class="rbac-stat">
+              <div class="rbac-stat-num" style="color:var(--violet);">&#10003;</div>
+              <div class="rbac-stat-lbl">ISOLATION</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 3: KNOWLEDGE CLASSIFICATION ═══ -->
+<section class="sec-dark" id="classification">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="label label-dark rv">Knowledge Classification</div>
+      <h2 class="stitle rv">Four clearance levels.<br>Query-time enforcement.</h2>
+      <p class="sdesc sdesc-dark rv" style="margin-left:auto;margin-right:auto;">Every document gets a classification rank. At query time, users only see content matching their clearance level. Enforced in the retrieval pipeline, not the UI.</p>
+    </div>
+
+    <div class="rv" style="max-width:780px;margin:0 auto;">
+      <div class="mock-panel shimmer">
+        <div class="mock-panel-bar">
+          <div class="mock-dot mock-dot-r"></div>
+          <div class="mock-dot mock-dot-y"></div>
+          <div class="mock-dot mock-dot-g"></div>
+          <div class="mock-panel-title">KNOWLEDGE &gt; CLASSIFICATION LEVELS</div>
+        </div>
+        <div class="mock-panel-body">
+          <!-- PUBLIC -->
+          <div class="class-bar class-bar-public">
+            <div class="class-rank" style="background:rgba(42,125,110,.12);color:var(--teal-light);">0</div>
+            <div class="class-lock" style="color:var(--teal-light);">&#128275;</div>
+            <div class="class-name" style="color:var(--teal-light);">PUBLIC</div>
+            <div class="class-desc">Visible to all users, no restrictions</div>
+            <div class="class-strength" style="color:var(--teal-light);">
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar"></div>
+              <div class="class-strength-bar"></div>
+              <div class="class-strength-bar"></div>
+            </div>
+            <div class="class-badge" style="background:rgba(42,125,110,.1);color:var(--teal-light);">RANK 0</div>
+          </div>
+          <!-- INTERNAL -->
+          <div class="class-bar class-bar-internal">
+            <div class="class-rank" style="background:rgba(74,127,181,.12);color:var(--sky);">1</div>
+            <div class="class-lock" style="color:var(--sky);">&#128274;</div>
+            <div class="class-name" style="color:var(--sky);">INTERNAL</div>
+            <div class="class-desc">Org members only, standard access</div>
+            <div class="class-strength" style="color:var(--sky);">
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar"></div>
+              <div class="class-strength-bar"></div>
+            </div>
+            <div class="class-badge" style="background:rgba(74,127,181,.1);color:var(--sky);">RANK 1</div>
+          </div>
+          <!-- CONFIDENTIAL -->
+          <div class="class-bar class-bar-confidential">
+            <div class="class-rank" style="background:rgba(201,168,76,.12);color:var(--gold-light);">2</div>
+            <div class="class-lock" style="color:var(--gold-light);">&#128274;</div>
+            <div class="class-name" style="color:var(--gold-light);">CONFIDENTIAL</div>
+            <div class="class-desc">SME + Manager clearance required</div>
+            <div class="class-strength" style="color:var(--gold-light);">
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar"></div>
+            </div>
+            <div class="class-badge" style="background:rgba(201,168,76,.1);color:var(--gold-light);">RANK 2</div>
+          </div>
+          <!-- RESTRICTED -->
+          <div class="class-bar class-bar-restricted">
+            <div class="class-rank" style="background:rgba(196,93,62,.12);color:var(--accent-glow);">3</div>
+            <div class="class-lock" style="color:var(--accent-glow);">&#128272;</div>
+            <div class="class-name" style="color:var(--accent-glow);">RESTRICTED</div>
+            <div class="class-desc">Owner-only, explicit grant required</div>
+            <div class="class-strength" style="color:var(--accent-glow);">
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar filled"></div>
+              <div class="class-strength-bar filled"></div>
+            </div>
+            <div class="class-badge" style="background:rgba(196,93,62,.1);color:var(--accent-glow);">RANK 3</div>
+          </div>
+
+          <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(244,241,236,.06);display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(244,241,236,.25);letter-spacing:.06em;">ENFORCEMENT:</div>
+            <div class="class-badge" style="background:rgba(42,125,110,.08);color:var(--teal-light);">RETRIEVAL PIPELINE</div>
+            <div class="class-badge" style="background:rgba(74,127,181,.08);color:var(--sky);">SCOPE CLAUSE INJECTION</div>
+            <div class="class-badge" style="background:rgba(201,168,76,.08);color:var(--gold-light);">QUERY-TIME FILTER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 4: AUDIT TRAIL ═══ -->
+<section class="sec" id="audit">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="label rv">Immutable Audit Trail</div>
+      <h2 class="stitle rv">Every action. Every user.<br>Every IP address. Logged.</h2>
+      <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Fire-and-forget, append-only audit logging. Every knowledge access, modification, and permission change is permanently recorded with full forensic metadata.</p>
+    </div>
+
+    <div class="rv" style="max-width:900px;margin:0 auto;">
+      <div class="mock-panel glow-border shimmer">
+        <div class="mock-panel-bar">
+          <div class="mock-dot mock-dot-r"></div>
+          <div class="mock-dot mock-dot-y"></div>
+          <div class="mock-dot mock-dot-g"></div>
+          <div class="mock-panel-title">AUDIT LOG &gt; LIVE STREAM &nbsp; <span style="display:inline-flex;align-items:center;gap:.25rem;color:var(--teal-light);"><span style="width:5px;height:5px;border-radius:50%;background:var(--teal-light);animation:pulse 2s infinite;"></span> LIVE</span></div>
+        </div>
+        <div class="mock-panel-body">
+          <div class="audit-entry">
+            <div class="audit-status audit-allow">&#10003;</div>
+            <div class="audit-user">Sundar P.</div>
+            <div class="audit-action">published <strong style="color:var(--paper);">Incident Playbook v8</strong></div>
+            <div class="audit-verdict audit-verdict-allow">ALLOWED</div>
+            <div class="audit-ip">10.0.1.42</div>
+            <div class="audit-time">14:23:07</div>
+          </div>
+          <div class="audit-entry">
+            <div class="audit-status audit-deny">&#10007;</div>
+            <div class="audit-user">Alex R.</div>
+            <div class="audit-action">attempted to access <strong style="color:rgba(244,241,236,.7);">Restricted: M&amp;A Due Diligence</strong></div>
+            <div class="audit-verdict audit-verdict-deny">DENIED</div>
+            <div class="audit-ip">10.0.1.55</div>
+            <div class="audit-time">14:22:51</div>
+          </div>
+          <div class="audit-entry">
+            <div class="audit-status audit-allow">&#10003;</div>
+            <div class="audit-user">Priya S.</div>
+            <div class="audit-action">certified <strong style="color:var(--paper);">SRE Runbook: Database Failover</strong> as SME_VERIFIED</div>
+            <div class="audit-verdict audit-verdict-allow">ALLOWED</div>
+            <div class="audit-ip">10.0.2.18</div>
+            <div class="audit-time">14:21:33</div>
+          </div>
+          <div class="audit-entry">
+            <div class="audit-status audit-allow">&#10003;</div>
+            <div class="audit-user">Jordan M.</div>
+            <div class="audit-action">queried knowledge base &mdash; 12 documents retrieved (clearance: INTERNAL)</div>
+            <div class="audit-verdict audit-verdict-allow">ALLOWED</div>
+            <div class="audit-ip">10.0.3.91</div>
+            <div class="audit-time">14:20:15</div>
+          </div>
+          <div class="audit-entry">
+            <div class="audit-status audit-deny">&#10007;</div>
+            <div class="audit-user">Casey T.</div>
+            <div class="audit-action">tried to modify role of <strong style="color:rgba(244,241,236,.7);">admin@acme.com</strong></div>
+            <div class="audit-verdict audit-verdict-deny">DENIED</div>
+            <div class="audit-ip">10.0.1.77</div>
+            <div class="audit-time">14:19:42</div>
+          </div>
+
+          <div class="audit-features">
+            <div class="audit-feature">IMMUTABLE</div>
+            <div class="audit-feature">APPEND-ONLY</div>
+            <div class="audit-feature">IP TRACKING</div>
+            <div class="audit-feature">FIRE-AND-FORGET</div>
+            <div class="audit-feature">365+ DAY RETENTION</div>
+            <div class="audit-feature">CLOUDWATCH EXPORT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5: ENCRYPTION & COMPLIANCE ═══ -->
+<section class="sec-dark" id="compliance">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="label label-dark rv">Encryption &amp; Compliance</div>
+      <h2 class="stitle rv">Military-grade encryption.<br>Industry-standard compliance.</h2>
+      <p class="sdesc sdesc-dark rv" style="margin-left:auto;margin-right:auto;">Every byte encrypted at rest and in transit. Built to satisfy the strictest regulatory frameworks from day one.</p>
+    </div>
+
+    <div class="grid-3 comp-grid-ent rv" style="max-width:900px;margin:0 auto;">
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(196,93,62,.12);">
+          <span style="font-size:1.3rem;">&#128272;</span>
+          <div style="position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(196,93,62,.2);"></div>
+        </div>
+        <h4>AES-256-GCM</h4>
+        <p>Authenticated encryption for all data at rest. Galois/Counter Mode provides both confidentiality and integrity.</p>
+        <div class="comp-badge" style="background:rgba(196,93,62,.1);color:var(--accent-glow);">ENCRYPTION</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(42,125,110,.12);">
+          <span style="font-size:1.3rem;">&#128273;</span>
+          <div style="position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(42,125,110,.2);"></div>
+        </div>
+        <h4>JWT Auth</h4>
+        <p>Stateless token-based authentication with RS256 signing. Scoped tokens with automatic expiration and refresh.</p>
+        <div class="comp-badge" style="background:rgba(42,125,110,.1);color:var(--teal-light);">AUTHENTICATION</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(74,127,181,.12);">
+          <span style="font-size:1.3rem;">&#127963;</span>
+          <div style="position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(74,127,181,.2);"></div>
+        </div>
+        <h4>FedRAMP Ready</h4>
+        <p>Architecture designed for FedRAMP authorization. Air-gapped deployment with local LLMs for classified environments.</p>
+        <div class="comp-badge" style="background:rgba(74,127,181,.1);color:var(--sky);">FEDERAL</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(224,86,112,.12);">
+          <span style="font-size:1.3rem;">&#127973;</span>
+          <div style="position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(224,86,112,.2);"></div>
+        </div>
+        <h4>HIPAA</h4>
+        <p>BAA-ready infrastructure. PHI handling with encryption, access controls, and audit trails satisfying the Security Rule.</p>
+        <div class="comp-badge" style="background:rgba(224,86,112,.1);color:var(--rose);">HEALTHCARE</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(123,94,167,.12);">
+          <span style="font-size:1.3rem;">&#128737;</span>
+          <div style="position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(123,94,167,.2);"></div>
+        </div>
+        <h4>SOC 2 Type II</h4>
+        <p>Continuous compliance monitoring for security, availability, and confidentiality. Annual third-party audit.</p>
+        <div class="comp-badge" style="background:rgba(123,94,167,.1);color:#a384d0;">TRUST</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(201,168,76,.12);">
+          <span style="font-size:1.3rem;">&#127758;</span>
+          <div style="position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(201,168,76,.2);"></div>
+        </div>
+        <h4>GDPR</h4>
+        <p>Full data subject rights: export, deletion, portability. Data residency controls with EU-hosted deployment options.</p>
+        <div class="comp-badge" style="background:rgba(201,168,76,.1);color:var(--gold-light);">PRIVACY</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 6: CERTIFICATION WORKFLOW ═══ -->
+<section class="sec" id="certification">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="label rv">Certification Workflow</div>
+      <h2 class="stitle rv">From AI-generated<br>to gold-standard certified.</h2>
+      <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Every piece of knowledge progresses through a four-step certification ladder. SMEs verify, compliance officers certify, and the entire chain is immutably logged.</p>
+    </div>
+
+    <div class="rv" style="max-width:960px;margin:0 auto;">
+      <div class="mock-panel glow-border">
+        <div class="mock-panel-bar">
+          <div class="mock-dot mock-dot-r"></div>
+          <div class="mock-dot mock-dot-y"></div>
+          <div class="mock-dot mock-dot-g"></div>
+          <div class="mock-panel-title">KNOWLEDGE &gt; CERTIFICATION PIPELINE</div>
+        </div>
+        <div class="mock-panel-body">
+          <div class="cert-ladder">
+            <!-- Step 1 -->
+            <div class="cert-step">
+              <span class="cert-step-num" style="color:var(--slate);">STEP 1</span>
+              <div class="cert-step-icon" style="background:rgba(138,141,148,.12);border:1px solid rgba(138,141,148,.15);">
+                <span>&#129302;</span>
+                <div style="position:absolute;inset:-2px;border-radius:14px;border:1px solid rgba(138,141,148,.15);"></div>
+              </div>
+              <h4 style="color:#a8abb2;">AI_GENERATED</h4>
+              <p>Raw AI output. Not yet human-reviewed. Marked with provenance metadata.</p>
+            </div>
+            <div class="cert-arrow">&#10132;</div>
+            <!-- Step 2 -->
+            <div class="cert-step">
+              <span class="cert-step-num" style="color:var(--sky);">STEP 2</span>
+              <div class="cert-step-icon" style="background:rgba(74,127,181,.12);border:1px solid rgba(74,127,181,.15);">
+                <span>&#128269;</span>
+                <div style="position:absolute;inset:-2px;border-radius:14px;border:1px solid rgba(74,127,181,.15);"></div>
+              </div>
+              <h4 style="color:var(--sky);">SME_VERIFIED</h4>
+              <p>Domain expert has reviewed and approved accuracy and relevance.</p>
+            </div>
+            <div class="cert-arrow">&#10132;</div>
+            <!-- Step 3 -->
+            <div class="cert-step">
+              <span class="cert-step-num" style="color:var(--gold-light);">STEP 3</span>
+              <div class="cert-step-icon" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.15);">
+                <span>&#128203;</span>
+                <div style="position:absolute;inset:-2px;border-radius:14px;border:1px solid rgba(201,168,76,.15);"></div>
+              </div>
+              <h4 style="color:var(--gold-light);">COMPLIANCE_CERTIFIED</h4>
+              <p>Compliance officer validated for regulatory requirements and policy alignment.</p>
+            </div>
+            <div class="cert-arrow">&#10132;</div>
+            <!-- Step 4 -->
+            <div class="cert-step">
+              <span class="cert-step-num" style="color:var(--teal-light);">STEP 4</span>
+              <div class="cert-step-icon" style="background:rgba(42,125,110,.12);border:1px solid rgba(42,125,110,.15);">
+                <span>&#127942;</span>
+                <div style="position:absolute;inset:-2px;border-radius:14px;border:1px solid rgba(42,125,110,.15);"></div>
+              </div>
+              <h4 style="color:var(--teal-light);">GOLD_STANDARD</h4>
+              <p>Fully certified, authoritative source of truth. Prioritized in all retrieval results.</p>
+            </div>
+          </div>
+
+          <div class="cert-progress">
+            <div class="cert-progress-fill"></div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:.8rem;flex-wrap:wrap;gap:.5rem;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(244,241,236,.25);display:flex;align-items:center;gap:.3rem;">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--teal-light);"></span>
+              75% of knowledge base certified
+            </div>
+            <div style="display:flex;gap:.4rem;">
+              <div class="class-badge" style="background:rgba(244,241,236,.03);color:rgba(244,241,236,.35);">IMMUTABLE LOG</div>
+              <div class="class-badge" style="background:rgba(244,241,236,.03);color:rgba(244,241,236,.35);">CHAIN OF CUSTODY</div>
+              <div class="class-badge" style="background:rgba(244,241,236,.03);color:rgba(244,241,236,.35);">TIMESTAMP + USER</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 7: CTA ═══ -->
+<section class="cta-section">
+  <div class="cta-shield-float">&#128737;</div>
+  <div class="cta-inner rv">
+    <div class="shield-icon" style="margin:0 auto 1.5rem;width:64px;height:64px;border-radius:16px;font-size:1.8rem;">&#128274;</div>
+    <h2>Ready to bring enterprise-grade<br>trust to your AI knowledge?</h2>
+    <p>Schedule a security review with our team. We'll walk through RBAC, classification, audit trails, and compliance certifications tailored to your industry.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-primary" href="contact.html">Schedule Security Review &#8594;</a>
+      <a class="btn btn-ghost-dark" href="pricing.html">View Enterprise Pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-mark"><img src="plugai-logo-white.png" alt="PlugAI"></div>
+        <span style="color:var(--paper);">PlugAI</span>
+      </a>
+      <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Enterprise</h4>
+      <a href="enterprise.html">Security</a>
+      <a href="enterprise.html">Compliance</a>
+      <a href="enterprise.html">RBAC</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="contact.html">Contact</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

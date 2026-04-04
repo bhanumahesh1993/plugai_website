@@ -23,12 +23,28 @@
 
 /* Gradient headline animation */
 .hero-gradient-text{
-  background:linear-gradient(135deg,var(--accent-glow) 0%,var(--gold-light) 25%,var(--teal-light) 50%,var(--accent-glow) 75%,var(--gold-light) 100%);
-  background-size:300% 300%;
+  background:linear-gradient(
+    120deg,
+    var(--accent-glow)   0%,
+    var(--gold-light)    20%,
+    var(--teal-light)    40%,
+    var(--gold-light)    60%,
+    var(--accent-glow)   80%,
+    var(--teal-light)    100%
+  );
+  background-size:400% 400%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:gradShift 8s ease-in-out infinite;
+  animation:gradShift 6s ease-in-out infinite;
 }
-@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+/* Second script term flows in sync but offset so they cascade */
+.hero-gradient-text.script-term:nth-of-type(2){
+  animation-delay:-3s;
+}
+@keyframes gradShift{
+  0%  {background-position:0%   50%}
+  50% {background-position:100% 50%}
+  100%{background-position:0%   50%}
+}
 
 /* Floating orbs */
 .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 14s ease-in-out infinite;}
@@ -297,7 +313,7 @@
   <div class="orb orb-c"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow hero-anim-1">Enterprise AI Platform</div>
-    <h1 class="hero-anim-2">Plug in your knowledge.<br>Let <span class="hero-gradient-text">AI agents</span> do the rest.</h1>
+    <h1 class="hero-anim-2">Plug in your knowledge.<br>Let <span class="hero-gradient-text script-term">AI agents</span> &amp; <span class="hero-gradient-text script-term">CwyoD</span><br>do the rest.</h1>
     <p class="hero-sub hero-anim-3">The world's first Agentic Knowledge OS — unify, certify, and act on all enterprise knowledge from one intelligent platform. Semantic search, autonomous agents, and compliance-grade governance.</p>
     <div class="hero-actions hero-anim-4">
       <a class="btn btn-primary" href="contact.html">Schedule a Demo &#8594;</a>

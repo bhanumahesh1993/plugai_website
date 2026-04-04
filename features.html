@@ -24,6 +24,9 @@
 .hero-anim-3{animation:fadeUp .8s ease-out .24s both;}
 .hero-anim-4{animation:fadeUp .8s ease-out .36s both;}
 
+/* Cycling cursive term */
+#feat-cycle{display:inline-block;overflow:visible;will-change:clip-path,opacity;}
+
 /* Gradient headline shimmer */
 .feat-gradient{
   background:linear-gradient(135deg,var(--accent-glow) 0%,var(--gold-light) 20%,var(--teal-light) 40%,var(--violet) 60%,var(--accent-glow) 80%,var(--gold-light) 100%);
@@ -438,7 +441,7 @@
   <div class="orb orb-c"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow hero-anim-1">Platform Deep Dive</div>
-    <h1 class="hero-anim-2">Every Feature.<br><em class="feat-gradient">Zero Compromise.</em></h1>
+    <h1 class="hero-anim-2">Every <span id="feat-cycle" class="feat-gradient script-term">Feature</span>.<br><em class="feat-gradient">Zero Compromise.</em></h1>
     <p class="hero-sub hero-anim-3">Semantic search, conversational AI, agent orchestration, knowledge management, and real-time analytics &mdash; unified in a single platform built for enterprises that refuse to settle.</p>
     <div class="hero-actions hero-anim-4">
       <a href="contact.html" class="btn btn-primary">Request a Demo &rarr;</a>
@@ -913,5 +916,43 @@
 </footer>
 
 <script src="main.js"></script>
+<script>
+/* ── Hero cycling: "Every ___." ── */
+(function(){
+  var el = document.getElementById('feat-cycle');
+  if (!el) return;
+  el.style.clipPath = 'inset(-0.05em 0% -0.4em 0)';
+  var terms = [
+    'Feature',
+    'Integration',
+    'Workflow',
+    'Connector',
+    'Agent',
+    'Search',
+    'Automation',
+    'Insight',
+    'Capability',
+    'Deployment'
+  ];
+  var idx = 0;
+  var DISPLAY_MS = 2400;
+  var WRITE_MS   = 600;
+  function next() {
+    el.style.transition = 'opacity .2s ease-out';
+    el.style.opacity    = '0';
+    setTimeout(function() {
+      idx = (idx + 1) % terms.length;
+      el.textContent = terms[idx];
+      el.style.transition = 'none';
+      el.style.opacity    = '1';
+      el.style.clipPath   = 'inset(-0.05em 100% -0.4em 0)';
+      el.getBoundingClientRect();
+      el.style.transition = 'clip-path ' + WRITE_MS + 'ms cubic-bezier(.25,.1,.25,1)';
+      el.style.clipPath   = 'inset(-0.05em 0% -0.4em 0)';
+    }, 220);
+  }
+  setInterval(next, DISPLAY_MS + WRITE_MS);
+})();
+</script>
 </body>
 </html>

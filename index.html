@@ -36,9 +36,13 @@
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   animation:gradShift 6s ease-in-out infinite;
 }
-/* Second script term flows in sync but offset so they cascade */
-.hero-gradient-text.script-term:nth-of-type(2){
-  animation-delay:-3s;
+/* Cycling term — transition for enter / exit */
+#hero-cycle{
+  display:inline-block;
+  transition:
+    opacity .38s cubic-bezier(.4,0,.2,1),
+    transform .38s cubic-bezier(.4,0,.2,1);
+  will-change:opacity,transform;
 }
 @keyframes gradShift{
   0%  {background-position:0%   50%}
@@ -313,7 +317,7 @@
   <div class="orb orb-c"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow hero-anim-1">Enterprise AI Platform</div>
-    <h1 class="hero-anim-2">Plug in your knowledge.<br>Let <span class="hero-gradient-text script-term">AI agents</span> &amp; <span class="hero-gradient-text script-term">CwyoD</span><br>do the rest.</h1>
+    <h1 class="hero-anim-2">Plug in your knowledge.<br>Let <span id="hero-cycle" class="hero-gradient-text script-term">AI Agents</span> do the rest.</h1>
     <p class="hero-sub hero-anim-3">The world's first Agentic Knowledge OS — unify, certify, and act on all enterprise knowledge from one intelligent platform. Semantic search, autonomous agents, and compliance-grade governance.</p>
     <div class="hero-actions hero-anim-4">
       <a class="btn btn-primary" href="contact.html">Schedule a Demo &#8594;</a>
@@ -822,5 +826,61 @@
 </footer>
 
 <script src="main.js"></script>
+<script>
+/* ═══ Hero Cycling Term ═══
+   "Let ___ do the rest." — cycles through brand terms in cursive + gradient
+*/
+(function(){
+  var terms = [
+    'AI Agents',
+    'PlugAI',
+    'CwyoD',
+    'Intelligence',
+    'Knowledge OS',
+    'Automation',
+    'Semantic Search',
+    'Agentic Workflows',
+    'Enterprise RAG',
+    'Your Data',
+    'Smart Answers',
+    'Certified Knowledge'
+  ];
+
+  var el = document.getElementById('hero-cycle');
+  if (!el) return;
+
+  var idx = 0;
+  var DISPLAY_MS  = 2400; /* how long each term sits visible */
+  var FADE_MS     = 380;  /* duration of fade-out and fade-in transitions */
+
+  function next() {
+    /* ── EXIT: slide up + fade out ── */
+    el.style.opacity   = '0';
+    el.style.transform = 'translateY(-14px)';
+
+    setTimeout(function() {
+      /* ── SWAP text ── */
+      idx = (idx + 1) % terms.length;
+      el.textContent = terms[idx];
+
+      /* set start position for entrance (below) */
+      el.style.transition = 'none';
+      el.style.transform  = 'translateY(16px)';
+      el.style.opacity    = '0';
+
+      /* force a reflow so the browser registers the jump before re-enabling transitions */
+      el.getBoundingClientRect();
+
+      /* ── ENTER: slide up into place + fade in ── */
+      el.style.transition = 'opacity .38s cubic-bezier(.4,0,.2,1), transform .38s cubic-bezier(.4,0,.2,1)';
+      el.style.opacity    = '1';
+      el.style.transform  = 'translateY(0)';
+
+    }, FADE_MS);
+  }
+
+  setInterval(next, DISPLAY_MS + FADE_MS);
+})();
+</script>
 </body>
 </html>

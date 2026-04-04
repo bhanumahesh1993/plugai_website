@@ -847,6 +847,9 @@
   var el = document.getElementById('hero-cycle');
   if (!el) return;
 
+  /* Ensure descenders show on the initial word too */
+  el.style.clipPath = 'inset(-0.05em 0% -0.4em 0)';
+
   var idx = 0;
   var DISPLAY_MS = 2400; /* how long each term sits visible */
   var WRITE_MS   = 600;  /* pen-drawing reveal duration */
@@ -861,17 +864,18 @@
       idx = (idx + 1) % terms.length;
       el.textContent = terms[idx];
 
-      /* Start fully clipped (hidden from the right) — looks like blank space */
+      /* Start fully clipped (hidden from the right).
+         Negative bottom (-0.4em) lets descenders (g,y,f) show below the box. */
       el.style.transition = 'none';
       el.style.opacity    = '1';
-      el.style.clipPath   = 'inset(0 100% 0 0)';
+      el.style.clipPath   = 'inset(-0.05em 100% -0.4em 0)';
 
       /* Force reflow so clip-path registers before transition begins */
       el.getBoundingClientRect();
 
       /* ── ENTER: reveal left→right like a pen writing ── */
       el.style.transition = 'clip-path ' + WRITE_MS + 'ms cubic-bezier(.25,.1,.25,1)';
-      el.style.clipPath   = 'inset(0 0% 0 0)';
+      el.style.clipPath   = 'inset(-0.05em 0% -0.4em 0)';
 
     }, 220); /* wait for fade-out to finish */
   }

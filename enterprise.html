@@ -375,7 +375,7 @@
     <a href="index.html" class="nav-brand"><div class="nav-mark"><img src="plugai-logo.png" alt="PlugAI"></div><span>PlugAI</span></a>
     <div class="nav-menu" id="navMenu">
       <a href="features.html">Features</a><a href="enterprise.html" style="color:var(--paper);">Enterprise</a>
-      <a href="pricing.html">Pricing</a><a href="roadmap.html">Roadmap</a>
+      <a href="pricing.html">Pricing</a><a href="roadmap.html">Pipeline</a>
       <a href="contact.html" class="nav-cta">Request Demo</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -721,8 +721,8 @@
           <div style="position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(123,94,167,.2);"></div>
         </div>
         <h4>SOC 2 Type II</h4>
-        <p>Continuous compliance monitoring for security, availability, and confidentiality. Annual third-party audit.</p>
-        <div class="comp-badge" style="background:rgba(123,94,167,.1);color:#a384d0;">TRUST</div>
+        <p>Architecture is SOC 2 compliant by design. Formal audit in progress — scheduled completion Q3 2026. Bridge letter available on request.</p>
+        <div class="comp-badge" style="background:rgba(123,94,167,.1);color:#a384d0;">IN PROGRESS · Q3 2026</div>
       </div>
       <div class="comp-card">
         <div class="comp-icon" style="background:rgba(201,168,76,.12);">
@@ -732,6 +732,67 @@
         <h4>GDPR</h4>
         <p>Full data subject rights: export, deletion, portability. Data residency controls with EU-hosted deployment options.</p>
         <div class="comp-badge" style="background:rgba(201,168,76,.1);color:var(--gold-light);">PRIVACY</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5b: DATA RESIDENCY ═══ -->
+<section class="sec" id="data-residency">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="label rv">Data Residency &amp; Sovereignty</div>
+      <h2 class="stitle rv">Your data. Your country.<br>Your choice.</h2>
+      <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Global Fortune 500 organizations have data sovereignty requirements that vary by industry and geography. PlugAI is one of the few enterprise AI platforms with true multi-region data residency — not just compute routing.</p>
+    </div>
+
+    <div class="grid-3 rv" style="max-width:960px;margin:0 auto 3rem;">
+      <div class="card" style="text-align:center;padding:2rem 1.5rem;">
+        <div style="font-size:2rem;margin-bottom:.75rem;">&#127988;</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;">India · Mumbai</div>
+        <h4 style="font-size:.95rem;margin-bottom:.4rem;">Default Region</h4>
+        <p style="font-size:.78rem;color:var(--slate);line-height:1.55;">AWS ap-south-1. Data never leaves Indian jurisdiction. Ideal for domestic enterprises and organizations subject to DPDP Act 2023 compliance.</p>
+      </div>
+      <div class="card" style="text-align:center;padding:2rem 1.5rem;border-color:var(--teal);box-shadow:0 0 0 1px rgba(42,125,110,.12),var(--shadow);">
+        <div style="font-size:2rem;margin-bottom:.75rem;">&#127466;&#127482;</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;">EU · Frankfurt</div>
+        <h4 style="font-size:.95rem;margin-bottom:.4rem;">GDPR Region</h4>
+        <p style="font-size:.78rem;color:var(--slate);line-height:1.55;">AWS eu-central-1. Full GDPR compliance with EU Standard Contractual Clauses. Data processed within EU borders for European enterprises.</p>
+      </div>
+      <div class="card" style="text-align:center;padding:2rem 1.5rem;">
+        <div style="font-size:2rem;margin-bottom:.75rem;">&#127482;&#127480;</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sky);margin-bottom:.5rem;">US · Virginia</div>
+        <h4 style="font-size:.95rem;margin-bottom:.4rem;">North America Region</h4>
+        <p style="font-size:.78rem;color:var(--slate);line-height:1.55;">AWS us-east-1. FedRAMP compliance pathway (Enterprise+). Preferred for North American enterprises and government-adjacent workloads.</p>
+      </div>
+    </div>
+
+    <div class="card rv" style="max-width:960px;margin:0 auto;background:var(--paper-warm);padding:2rem 2.5rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;">
+        <div>
+          <div class="label" style="margin-bottom:.6rem;">Enterprise+ Exclusive</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:.5rem;">Zero-egress Private Deployment</h3>
+          <p style="font-size:.82rem;color:var(--slate);line-height:1.65;">For organizations that require data to never leave their own infrastructure, Enterprise+ supports full on-premise or private cloud deployment. Your PlugAI instance runs entirely within your data center — zero data transmitted to PlugAI's infrastructure.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.6rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;">
+            <span class="chk chk-y" style="width:20px;height:20px;font-size:.6rem;flex-shrink:0;">&#10003;</span>
+            All compute stays in your data center
+          </div>
+          <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;">
+            <span class="chk chk-y" style="width:20px;height:20px;font-size:.6rem;flex-shrink:0;">&#10003;</span>
+            Air-gapped local LLMs (no external API calls)
+          </div>
+          <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;">
+            <span class="chk chk-y" style="width:20px;height:20px;font-size:.6rem;flex-shrink:0;">&#10003;</span>
+            Custom encryption key management (BYOK)
+          </div>
+          <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;">
+            <span class="chk chk-y" style="width:20px;height:20px;font-size:.6rem;flex-shrink:0;">&#10003;</span>
+            Supports classified &amp; FedRAMP workloads
+          </div>
+          <a href="contact.html" style="margin-top:.5rem;" class="btn btn-primary" style="display:inline-flex;width:fit-content;">Request Architecture Docs &#8594;</a>
+        </div>
       </div>
     </div>
   </div>
@@ -822,15 +883,53 @@
   </div>
 </section>
 
-<!-- ═══ SECTION 7: CTA ═══ -->
+<!-- ═══ SECTION 7: SECURITY REVIEW CTA ═══ -->
+<section class="sec-warm" id="security-review">
+  <div class="sec-inner">
+    <div class="rv" style="max-width:900px;margin:0 auto;background:var(--navy);border-radius:var(--radius);padding:3.5rem;position:relative;overflow:hidden;box-shadow:0 8px 48px rgba(26,39,68,.2);">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 50%,rgba(196,93,62,.08),transparent 60%);pointer-events:none;"></div>
+      <div style="position:relative;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;">
+        <div>
+          <div class="label label-dark" style="margin-bottom:.6rem;">For Security Teams</div>
+          <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;color:var(--paper);margin-bottom:.75rem;line-height:1.2;">Request a Security Review</h2>
+          <p style="font-size:.88rem;color:rgba(244,241,236,.5);line-height:1.7;max-width:480px;margin-bottom:1.5rem;">We'll send your CISO team a complete Security &amp; Architecture Overview document — covering data flow diagrams, encryption specifications, RBAC model, audit log structure, deployment architecture, and compliance posture. Typically delivered within 2 business days.</p>
+          <div style="display:flex;flex-direction:column;gap:.5rem;">
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:rgba(244,241,236,.55);">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--teal-light);flex-shrink:0;"></span>
+              Data flow diagram (all integration points)
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:rgba(244,241,236,.55);">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--teal-light);flex-shrink:0;"></span>
+              Encryption key lifecycle and rotation policy
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:rgba(244,241,236,.55);">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--teal-light);flex-shrink:0;"></span>
+              SOC 2 bridge letter (audit in progress, Q3 2026)
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:rgba(244,241,236,.55);">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--teal-light);flex-shrink:0;"></span>
+              Penetration test summary (available on NDA)
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.75rem;flex-shrink:0;">
+          <a class="btn btn-primary" href="contact.html?type=security" style="white-space:nowrap;text-align:center;">Request Security Docs &#8594;</a>
+          <a class="btn btn-ghost-dark" href="contact.html" style="white-space:nowrap;text-align:center;">Schedule Security Call</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
 <section class="cta-section">
   <div class="cta-shield-float">&#128737;</div>
   <div class="cta-inner rv">
     <div class="shield-icon" style="margin:0 auto 1.5rem;width:64px;height:64px;border-radius:16px;font-size:1.8rem;">&#128274;</div>
     <h2>Ready to bring enterprise-grade<br>trust to your AI knowledge?</h2>
-    <p>Schedule a security review with our team. We'll walk through RBAC, classification, audit trails, and compliance certifications tailored to your industry.</p>
+    <p>Security is not a feature — it's the foundation. Let's walk through how PlugAI can satisfy your organization's compliance review from day one.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a class="btn btn-primary" href="contact.html">Schedule Security Review &#8594;</a>
+      <a class="btn btn-primary" href="contact.html">Talk to the Security Team &#8594;</a>
       <a class="btn btn-ghost-dark" href="pricing.html">View Enterprise Pricing</a>
     </div>
   </div>
@@ -845,31 +944,34 @@
         <span style="color:var(--paper);">PlugAI</span>
       </a>
       <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+      <div class="footer-mii">
+        <span class="footer-mii-flag" aria-hidden="true"><span class="saffron"></span><span class="white"></span><span class="green"></span></span>
+        <span>Proudly Made in India</span>
+      </div>
     </div>
     <div class="footer-col">
       <h4>Product</h4>
       <a href="features.html">Features</a>
       <a href="pricing.html">Pricing</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="#">Changelog</a>
+      <a href="roadmap.html">Innovation Pipeline</a>
+      <a href="contact.html">Request Demo</a>
     </div>
     <div class="footer-col">
       <h4>Enterprise</h4>
-      <a href="enterprise.html">Security</a>
-      <a href="enterprise.html">Compliance</a>
-      <a href="enterprise.html">RBAC</a>
-      <a href="#">Docs</a>
+      <a href="enterprise.html">Security &amp; Compliance</a>
+      <a href="enterprise.html#rbac">Access Control</a>
+      <a href="enterprise.html#compliance">Certifications</a>
+      <a href="contact.html">Security Review</a>
     </div>
     <div class="footer-col">
-      <h4>Company</h4>
+      <h4>Legal</h4>
       <a href="contact.html">Contact</a>
-      <a href="#">Blog</a>
-      <a href="#">Careers</a>
-      <a href="#">Privacy</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p>
+    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.in</span></p>
   </div>
 </footer>
 

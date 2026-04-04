@@ -79,6 +79,146 @@
   letter-spacing:.02em;
 }
 
+/* Trusted by — Waiting for you */
+.trust-section{
+  background:var(--paper-warm);padding:5rem 2rem;text-align:center;
+  border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);
+}
+.trust-label{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--slate);opacity:.6;
+  margin-bottom:2.5rem;
+}
+.trust-slots{
+  display:flex;align-items:center;justify-content:center;gap:1.5rem;
+  flex-wrap:wrap;margin-bottom:3rem;
+}
+.trust-slot{
+  width:160px;height:64px;border-radius:12px;
+  border:1.5px dashed rgba(90,100,120,.18);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .4s ease;position:relative;overflow:hidden;
+  background:rgba(255,255,255,.5);
+}
+.trust-slot::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent,rgba(196,93,62,.03),transparent);
+  opacity:0;transition:opacity .4s;
+}
+.trust-slot:hover{border-color:rgba(196,93,62,.2);background:rgba(255,255,255,.8);}
+.trust-slot:hover::before{opacity:1;}
+.trust-slot-inner{
+  display:flex;flex-direction:column;align-items:center;gap:.3rem;
+}
+.trust-slot-ring{
+  width:28px;height:28px;border-radius:50%;
+  border:1.5px dashed rgba(90,100,120,.25);
+  display:flex;align-items:center;justify-content:center;
+}
+.trust-slot-line{
+  width:60px;height:6px;border-radius:3px;
+  background:rgba(90,100,120,.1);
+}
+.trust-slot-line-sm{
+  width:40px;height:4px;border-radius:2px;
+  background:rgba(90,100,120,.07);
+}
+.trust-headline{
+  font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:400;font-style:italic;color:var(--ink);
+  line-height:1.2;margin-bottom:.75rem;
+  opacity:.75;
+}
+.trust-sub{
+  font-size:.9rem;color:var(--slate);max-width:460px;margin:0 auto 2rem;
+  line-height:1.65;
+}
+.trust-cta{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.65rem 1.5rem;border-radius:8px;
+  border:1px solid rgba(196,93,62,.25);color:var(--accent);
+  font-size:.8rem;font-weight:600;transition:all .25s;
+  background:rgba(196,93,62,.04);
+}
+.trust-cta:hover{background:rgba(196,93,62,.08);border-color:var(--accent);}
+
+/* Deployment moat section */
+.deploy-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:1px solid var(--edge);border-radius:var(--radius);
+  overflow:hidden;background:white;box-shadow:var(--shadow);
+}
+.deploy-card{
+  padding:2.5rem 2rem;position:relative;
+  border-right:1px solid var(--edge);
+  transition:all .3s;
+}
+.deploy-card:last-child{border-right:none;}
+.deploy-card:hover{background:rgba(244,241,236,.4);}
+.deploy-num{
+  font-family:'DM Serif Display',serif;font-size:3.5rem;
+  line-height:1;color:var(--edge);margin-bottom:.5rem;
+  transition:color .3s;position:absolute;top:1.5rem;right:1.75rem;
+}
+.deploy-card:nth-child(1) .deploy-num{color:rgba(196,93,62,.08);}
+.deploy-card:nth-child(2) .deploy-num{color:rgba(42,125,110,.08);}
+.deploy-card:nth-child(3) .deploy-num{color:rgba(201,168,76,.08);}
+.deploy-icon-wrap{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1rem;
+}
+.deploy-badge{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;
+  border-radius:4px;display:inline-block;margin-bottom:.6rem;
+}
+
+/* Enterprise-only pricing teaser */
+.ent-pricing-teaser{
+  background:var(--navy);border-radius:var(--radius);padding:3.5rem;
+  position:relative;overflow:hidden;
+  box-shadow:0 8px 40px rgba(26,39,68,.2);
+  display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;
+}
+.ent-pricing-teaser::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 50% 70% at 80% 50%,rgba(196,93,62,.07),transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 80%,rgba(42,125,110,.05),transparent 60%);
+}
+.ent-pricing-teaser > *{position:relative;}
+.ent-tier{
+  background:rgba(244,241,236,.04);border:1px solid rgba(244,241,236,.08);
+  border-radius:12px;padding:1.5rem;min-width:200px;text-align:center;
+}
+.ent-tier-name{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem;
+}
+.ent-tier-tagline{
+  font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--paper);
+  margin-bottom:1rem;
+}
+.ent-tier-features{
+  display:flex;flex-direction:column;gap:.3rem;margin-bottom:1.25rem;
+}
+.ent-tier-features span{
+  font-size:.7rem;color:rgba(244,241,236,.5);
+  display:flex;align-items:center;gap:.35rem;justify-content:center;
+}
+.ent-tier-features span::before{
+  content:'→';font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--gold-light);
+}
+@media(max-width:768px){
+  .ent-pricing-teaser{grid-template-columns:1fr;}
+  .deploy-grid{grid-template-columns:1fr;}
+  .deploy-card{border-right:none;border-bottom:1px solid var(--edge);}
+  .trust-slots{gap:1rem;}
+  .trust-slot{width:130px;height:52px;}
+}
+
 /* CwyoD mock */
 .cwyod-mock{
   background:var(--navy);border-radius:14px;padding:1.25rem;
@@ -141,7 +281,7 @@
       <a href="features.html">Features</a>
       <a href="enterprise.html">Enterprise</a>
       <a href="pricing.html">Pricing</a>
-      <a href="roadmap.html">Roadmap</a>
+      <a href="roadmap.html">Pipeline</a>
       <a href="contact.html" class="nav-cta">Request Demo</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -243,22 +383,37 @@
 <section class="stats-bar">
   <div class="stats-bar-inner">
     <div class="rv">
-      <div class="stat-num"><span data-count="19" data-suffix="%">0%</span></div>
-      <div class="stat-label">of workweek lost searching for information</div>
+      <div class="stat-num"><span data-count="94" data-suffix="%">0%</span></div>
+      <div class="stat-label">retrieval accuracy on enterprise document corpora</div>
     </div>
     <div class="rv anim-delay-1">
-      <div class="stat-num">$<span data-count="47" data-suffix="B">0B</span></div>
-      <div class="stat-label">knowledge management market by 2028</div>
+      <div class="stat-num"><span data-count="320" data-suffix="ms">0ms</span></div>
+      <div class="stat-label">average hybrid search query response time</div>
     </div>
     <div class="rv anim-delay-2">
-      <div class="stat-num"><span data-count="30" data-suffix="%">0%</span></div>
-      <div class="stat-label">enterprise knowledge becomes stale in 6 months</div>
+      <div class="stat-num"><span data-count="28" data-suffix="+">0+</span></div>
+      <div class="stat-label">enterprise connectors with encrypted credentials</div>
     </div>
     <div class="rv anim-delay-3">
-      <div class="stat-num"><span data-count="6" data-suffix="x">0x</span></div>
-      <div class="stat-label">faster answers with AI-powered hybrid retrieval</div>
+      <div class="stat-num"><span data-count="3" data-suffix="x">0x</span></div>
+      <div class="stat-label">deployment models: SaaS, hybrid &amp; on-premise</div>
     </div>
   </div>
+</section>
+
+<!-- ═══ TRUSTED BY — WAITING FOR YOU ═══ -->
+<section class="trust-section">
+  <div class="trust-label rv">Trusted By</div>
+  <div class="trust-slots rv">
+    <div class="trust-slot"><div class="trust-slot-inner"><div class="trust-slot-ring"></div><div class="trust-slot-line"></div><div class="trust-slot-line-sm"></div></div></div>
+    <div class="trust-slot"><div class="trust-slot-inner"><div class="trust-slot-ring"></div><div class="trust-slot-line"></div><div class="trust-slot-line-sm"></div></div></div>
+    <div class="trust-slot"><div class="trust-slot-inner"><div class="trust-slot-ring"></div><div class="trust-slot-line"></div><div class="trust-slot-line-sm"></div></div></div>
+    <div class="trust-slot"><div class="trust-slot-inner"><div class="trust-slot-ring"></div><div class="trust-slot-line"></div><div class="trust-slot-line-sm"></div></div></div>
+    <div class="trust-slot"><div class="trust-slot-inner"><div class="trust-slot-ring"></div><div class="trust-slot-line"></div><div class="trust-slot-line-sm"></div></div></div>
+  </div>
+  <h3 class="trust-headline rv">Waiting for you.</h3>
+  <p class="trust-sub rv">The first logos here will signal to every Fortune 500 procurement team that peers have already made this bet. We're building our design partner network — early access, direct product influence, and shared success.</p>
+  <a href="contact.html" class="trust-cta rv">Apply to be a Design Partner &#8594;</a>
 </section>
 
 <!-- ═══ PROBLEM ═══ -->
@@ -518,74 +673,82 @@
   </div>
 </section>
 
-<!-- ═══ QUICK PRICING ═══ -->
+<!-- ═══ DEPLOYMENT MOAT ═══ -->
 <section class="sec-warm">
-  <div class="sec-inner" style="text-align:center;">
-    <div class="label rv" style="justify-content:center;">Pricing</div>
-    <h2 class="stitle rv">Start free. Scale with confidence.</h2>
-    <p class="sdesc rv" style="margin-left:auto;margin-right:auto;">Transparent seat-based pricing. No per-query fees.</p>
+  <div class="sec-inner">
+    <div class="label rv">Deployment Flexibility</div>
+    <h2 class="stitle rv">The moat Glean can't cross.</h2>
+    <p class="sdesc rv">Glean runs exclusively in single-tenant cloud. PlugAI is the only enterprise knowledge platform that operates in all three deployment models — without sacrificing a single feature.</p>
 
-    <div class="grid-4 rv" style="text-align:left;">
-      <div class="price-card">
-        <span class="price-tier" style="color:var(--slate);">Starter</span>
-        <div class="price-amount">Free</div>
-        <div class="price-label">forever</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li>Up to 20 users</li>
-          <li>1,000 articles</li>
-          <li>5 connectors</li>
-          <li>Basic semantic search</li>
-          <li>Community support</li>
-        </ul>
+    <div class="deploy-grid rv">
+      <div class="deploy-card">
+        <div class="deploy-num">01</div>
+        <div class="deploy-icon-wrap" style="background:rgba(196,93,62,.08);">&#9729;</div>
+        <div class="deploy-badge" style="background:rgba(196,93,62,.08);color:var(--accent);">SaaS Cloud</div>
+        <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:.4rem;">Fully Managed</h3>
+        <p style="font-size:.8rem;color:var(--slate);line-height:1.55;">Zero infra overhead. Instant provisioning. Automatic updates. SOC 2 Type II environment maintained by PlugAI. Ideal for organizations ready to move fast.</p>
       </div>
-      <div class="price-card">
-        <span class="price-tier" style="color:var(--teal);">Professional</span>
-        <div class="price-amount">$25</div>
-        <div class="price-label">per user / month</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li>Unlimited users &amp; articles</li>
-          <li>50 connectors</li>
-          <li>Graph RAG search</li>
-          <li>API access + widget</li>
-          <li>Agent builder</li>
-          <li>Priority support</li>
-        </ul>
+      <div class="deploy-card">
+        <div class="deploy-num">02</div>
+        <div class="deploy-icon-wrap" style="background:rgba(42,125,110,.08);">&#127968;</div>
+        <div class="deploy-badge" style="background:rgba(42,125,110,.08);color:var(--teal);">Hybrid</div>
+        <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:.4rem;">Data Stays with You</h3>
+        <p style="font-size:.8rem;color:var(--slate);line-height:1.55;">Compute in PlugAI's cloud, data residency in your VPC. Ideal for organizations with data sovereignty requirements in regulated industries or specific geographies.</p>
       </div>
-      <div class="price-card featured">
-        <div class="price-popular">Most Popular</div>
-        <span class="price-tier" style="color:var(--gold-light);">Enterprise</span>
-        <div class="price-amount">$55</div>
-        <div class="price-label">per user / month</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li>Everything in Professional</li>
-          <li>Unlimited connectors</li>
-          <li>Multiple workspaces</li>
-          <li>SME certification workflow</li>
-          <li>SSO &amp; compliance tools</li>
-          <li>Dedicated CSM</li>
-        </ul>
-      </div>
-      <div class="price-card">
-        <span class="price-tier" style="color:var(--accent-glow);">Enterprise+</span>
-        <div class="price-amount">Custom</div>
-        <div class="price-label">license key required</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li>Multi-org licensing</li>
-          <li>Private cloud deploy</li>
-          <li>Local / private LLMs</li>
-          <li>FedRAMP compliance</li>
-          <li>Custom SLAs</li>
-          <li>Dedicated support team</li>
-        </ul>
+      <div class="deploy-card">
+        <div class="deploy-num">03</div>
+        <div class="deploy-icon-wrap" style="background:rgba(201,168,76,.08);">&#128274;</div>
+        <div class="deploy-badge" style="background:rgba(201,168,76,.08);color:var(--gold);">On-Premise / Air-Gapped</div>
+        <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:.4rem;">Fully Isolated</h3>
+        <p style="font-size:.8rem;color:var(--slate);line-height:1.55;">Entire stack deployed in your data center. Private LLMs (Llama 3, Mistral) for fully air-gapped environments. The only solution for FedRAMP High and classified workloads.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div style="text-align:center;margin-top:2rem;" class="rv">
-      <a href="pricing.html" class="btn btn-ghost" style="font-size:.82rem;">View Full Comparison &#8594;</a>
+<!-- ═══ ENTERPRISE PRICING TEASER ═══ -->
+<section class="sec-dark">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="label label-dark rv" style="justify-content:center;">Enterprise Pricing</div>
+      <h2 class="stitle rv">Tailored to your scale.</h2>
+      <p class="sdesc sdesc-dark rv" style="margin-left:auto;margin-right:auto;">PlugAI is built for enterprise. Pricing is structured to reflect your deployment scope, seat count, and compliance requirements — not a self-serve grid.</p>
+    </div>
+
+    <div class="ent-pricing-teaser rv">
+      <div>
+        <div class="label label-dark" style="margin-bottom:.75rem;">Two Tiers. Zero Surprises.</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--paper);margin-bottom:1rem;line-height:1.2;">Enterprise Knowledge Intelligence,<br>tailored to your organization.</h3>
+        <p style="font-size:.88rem;color:rgba(244,241,236,.5);line-height:1.7;max-width:480px;margin-bottom:2rem;">All new customers engage through a guided sales process — evaluation, security review, pilot, and onboarding. No credit card, no self-serve checkout.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="contact.html">Talk to Sales &#8594;</a>
+          <a class="btn btn-ghost-dark" href="pricing.html">View Pricing Details</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="ent-tier">
+          <div class="ent-tier-name" style="color:var(--gold-light);">Enterprise</div>
+          <div class="ent-tier-tagline">Deployment-ready intelligence</div>
+          <div class="ent-tier-features">
+            <span>Unlimited connectors &amp; workspaces</span>
+            <span>SSO, RBAC &amp; compliance tools</span>
+            <span>Full agentic workflow suite</span>
+            <span>Dedicated Customer Success</span>
+          </div>
+          <a href="contact.html" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--gold-light);letter-spacing:.06em;">CONTACT SALES &#8594;</a>
+        </div>
+        <div class="ent-tier">
+          <div class="ent-tier-name" style="color:var(--accent-glow);">Enterprise+</div>
+          <div class="ent-tier-tagline">For regulated &amp; sovereign environments</div>
+          <div class="ent-tier-features">
+            <span>Private cloud or on-premise deploy</span>
+            <span>Air-gapped local LLMs</span>
+            <span>FedRAMP, HIPAA, custom SLAs</span>
+            <span>Multi-org &amp; encryption key mgmt</span>
+          </div>
+          <a href="contact.html" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--accent-glow);letter-spacing:.06em;">CONTACT SALES &#8594;</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -611,31 +774,34 @@
         <span style="color:var(--paper);">PlugAI</span>
       </a>
       <p>The Agentic Knowledge OS for enterprises that treat knowledge as their competitive edge.</p>
+      <div class="footer-mii">
+        <span class="footer-mii-flag" aria-hidden="true"><span class="saffron"></span><span class="white"></span><span class="green"></span></span>
+        <span>Proudly Made in India</span>
+      </div>
     </div>
     <div class="footer-col">
       <h4>Product</h4>
       <a href="features.html">Features</a>
       <a href="pricing.html">Pricing</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="#">Changelog</a>
+      <a href="roadmap.html">Innovation Pipeline</a>
+      <a href="contact.html">Request Demo</a>
     </div>
     <div class="footer-col">
       <h4>Enterprise</h4>
-      <a href="enterprise.html">Security</a>
-      <a href="enterprise.html">Compliance</a>
-      <a href="enterprise.html">RBAC</a>
-      <a href="#">Docs</a>
+      <a href="enterprise.html">Security &amp; Compliance</a>
+      <a href="enterprise.html#rbac">Access Control</a>
+      <a href="enterprise.html#compliance">Certifications</a>
+      <a href="contact.html">Security Review</a>
     </div>
     <div class="footer-col">
-      <h4>Company</h4>
+      <h4>Legal</h4>
       <a href="contact.html">Contact</a>
-      <a href="#">Blog</a>
-      <a href="#">Careers</a>
-      <a href="#">Privacy</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.app</span></p>
+    <p>&copy; 2026 PlugAI, Inc. All rights reserved. &middot; <span>plugai.in</span></p>
   </div>
 </footer>
 

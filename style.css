@@ -553,6 +553,35 @@ footer{background:var(--ink);color:var(--paper);padding:4rem 2rem 0;}
 }
 .footer-bottom span{color:var(--accent);}
 
+/* ─── MAKE IN INDIA ─── */
+.footer-mii{
+  display:inline-flex;align-items:center;gap:.45rem;
+  margin-top:1rem;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;
+  font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(244,241,236,.35);
+  padding:.35rem .75rem;border-radius:6px;
+  border:1px solid rgba(244,241,236,.08);
+  background:rgba(244,241,236,.03);
+  transition:all .3s;
+}
+.footer-mii:hover{
+  color:rgba(244,241,236,.6);
+  border-color:rgba(244,241,236,.12);
+}
+.footer-mii-flag{
+  /* Inline tricolor bar */
+  display:inline-flex;flex-direction:column;
+  width:16px;height:12px;border-radius:2px;overflow:hidden;flex-shrink:0;
+  border:1px solid rgba(244,241,236,.15);
+}
+.footer-mii-flag span{
+  flex:1;display:block;
+}
+.footer-mii-flag .saffron{background:#FF9933;}
+.footer-mii-flag .white{background:#FFFFFF;position:relative;}
+.footer-mii-flag .green{background:#138808;}
+
 /* ─── CTA SECTION ─── */
 .cta-section{
   background:var(--ink);padding:7rem 2rem;text-align:center;
